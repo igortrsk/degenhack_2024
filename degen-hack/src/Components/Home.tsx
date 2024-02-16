@@ -37,7 +37,10 @@ function Home() {
         <h1 className="text-2xl text-[#ffffff] text-center pb-6 font-bold font-main">
           Even more interesting
         </h1>
-        <a className="text-2xl text-[#ffffff] mx-auto py-2 px-8 border-2 rounded-xl bg-[#9af0a6] border-[#9af0a6]">
+        <a
+          className="text-2xl text-[#ffffff] mx-auto py-2 px-8 border-2 rounded-xl bg-[#9af0a6] border-[#9af0a6]"
+          href="./"
+        >
           Lunch wallet now
         </a>
         <div className="w-[80%]">
