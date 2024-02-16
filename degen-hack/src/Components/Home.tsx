@@ -1,4 +1,3 @@
-import React from "react"
 import logoPC from "../Assets/amogpng.png"
 import checkMark from "../Assets/check-mark-svgrepo-com.svg"
 function Home() {

@@ -1,6 +1,6 @@
-import "./App.css"
-import Home from "./Components/Home"
-import Navbar from "./Components/Navbar"
+import "./App.css";
+import Home from "./Components/Home";
+import Navbar from "./Components/Navbar";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       </div>
       {/* <WalletCard /> */}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

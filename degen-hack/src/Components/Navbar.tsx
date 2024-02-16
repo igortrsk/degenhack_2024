@@ -1,5 +1,4 @@
-import React from "react"
-import logo from "../Assets/amogpng.png"
+import logo from "../Assets/amogpng.png";
 function Navbar() {
   return (
     <div className="flex flex-row backdrop-blur-lg bg-[#1c1c1c]">
@@ -10,7 +9,7 @@ function Navbar() {
       {/* wallet status */}
       {}
     </div>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
