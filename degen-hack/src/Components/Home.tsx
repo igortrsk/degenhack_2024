@@ -1,5 +1,6 @@
 import logoPC from "../Assets/amogpng.png"
 import checkMark from "../Assets/check-mark-svgrepo-com.svg"
+import sendTestTx from "../common"
 function Home() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mx-auto justify-center items-center py-16">
@@ -42,6 +43,12 @@ function Home() {
         >
           Lunch wallet now
         </a>
+        <button
+          className="text-2xl mt-4 text-[#ffffff] mx-auto py-2 px-8 border-2 rounded-xl bg-[#9af0a6] border-[#9af0a6]"
+          onClick={sendTestTx}
+        >
+          Send test tx
+        </button>
         <div className="w-[80%]">
           <div className="relative flex py-5 items-center">
             <div className="flex-grow border-t border-grey-400"></div>
