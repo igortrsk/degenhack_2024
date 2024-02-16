@@ -1,21 +1,20 @@
 import { FuseSDK } from "@fuseio/fusebox-web-sdk";
 import { ethers } from "ethers";
-import { generatePrivateKey } from "viem/accounts";
 import { API_KEY } from "./env";
 
 export default async function sendTestTx() {
   console.log("sendTestTx...");
 
-  const privateKey =
-    process.env.PRIVATE_KEY ??
-    (() => {
-      const pk = generatePrivateKey();
-      console.log(pk);
-      return pk;
-    })();
+  //   const privateKey =
+  // process.env.PRIVATE_KEY ??
+  // (() => {
+  //   const pk = generatePrivateKey();
+  //   console.log(pk);
+  //   return pk;
+  // })();
 
   const apiKey = API_KEY;
-  const credentials = new ethers.Wallet(privateKey);
+  const credentials = new ethers.Wallet("0xENTERHERE:)");
   const fuseSDK = await FuseSDK.init(apiKey, credentials, {
     withPaymaster: true,
   });
