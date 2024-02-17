@@ -2,7 +2,7 @@ import { FuseSDK } from "@fuseio/fusebox-web-sdk";
 import { ethers } from "ethers";
 import { API_KEY } from "./env";
 
-export default async function sendTestTx() {
+export default async function sendTestTx(addr: string, msg: string) {
   console.log("sendTestTx...");
 
   //   const privateKey =
@@ -25,7 +25,7 @@ export default async function sendTestTx() {
 
   const to = "0xd8da6bf26964af9d7eed9e03e53415d37aa96045"; // for vitalik.eth
   const value = ethers.utils.parseEther("0");
-  const data = new TextEncoder().encode("0x1234");
+  const data = new TextEncoder().encode("testing");
   const res = await fuseSDK.callContract(to, value, data);
 
   console.log(`UserOpHash: ${res?.userOpHash}`);

@@ -30,6 +30,11 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
   };
+
+  const handleSend = () => {
+    handleClose();
+    sendTestTx("abc", "efg");
+  };
   return (
     <div>
       {!loggedIn ? (
@@ -76,7 +81,7 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
             </button>
             <button
               className="text-2xl mt-4 text-[#ffffff] mx-auto py-2 px-8 border-2 rounded-xl bg-[#9af0a6] border-[#9af0a6]"
-              onClick={sendTestTx}
+              // onClick={sendTestTx}
             >
               Send test tx
             </button>
@@ -275,6 +280,7 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
                             <button
                               className=" border-[#12ff81] border-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                               type="button"
+                              onClick={handleSend}
                             >
                               <p className="text-[#12ff81]">Send</p>
                             </button>
