@@ -2,7 +2,7 @@ import logo from "../Assets/amogpng.png";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
 interface NavbarProps {
-  address: string | null | undefined;
+  address: string | null;
   logout: () => void; // Define the type of the function
 }
 
@@ -19,7 +19,7 @@ const Navbar: React.FC<NavbarProps> = ({ address, logout }) => {
       <div>
         <img src={logo} alt="logo" className="max-h-12 max-w-12" />
       </div>
-      {address != (null || undefined) ? (
+      {address !== null ? (
         <div className="flex gap-2 items-center px-8">
           <button onClick={logout}>LOGOUT</button>
           <Jazzicon diameter={25} seed={jsNumberForAddress(address)} />
