@@ -90,9 +90,6 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
           </div>
         </div>
       ) : (
-        //Wyswietlanie wszystkich coinów oraz ich sumaryczna wartość & Przycisk do dodawania tokenów
-        //Status transakcji i pod tym przycisk do wysyłania tokenów -> modal
-        //Informacje o posiadanych locked wartościach -> przycisk do dodawania nowych, modal
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mx-auto justify-center items-center py-16">
           <div className="bg-[#1c1c1c] w-full h-full rounded-lg p-4 ">
             <div className="flex flex-row gap-2">
