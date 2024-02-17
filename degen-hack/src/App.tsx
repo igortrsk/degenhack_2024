@@ -3,7 +3,7 @@ import Home from "./Components/Home";
 import Navbar from "./Components/Navbar";
 import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/modal";
-import { CHAIN_NAMESPACES, WALLET_ADAPTERS, IProvider } from "@web3auth/base";
+import { CHAIN_NAMESPACES, IProvider } from "@web3auth/base";
 import { CLIENT_ID } from "./env";
 // import { FuseSDK } from "@fuseio/fusebox-web-sdk";
 import Web3 from "web3";
@@ -20,9 +20,6 @@ const chainConfig = {
 };
 
 const web3auth = new Web3Auth({
-  uiConfig: {
-    appName: "hackathon2024",
-  },
   clientId,
   chainConfig,
   web3AuthNetwork: "sapphire_mainnet",
@@ -37,24 +34,7 @@ function App() {
   useEffect(() => {
     const init = async () => {
       try {
-        await web3auth.initModal({
-          modalConfig: {
-            [WALLET_ADAPTERS.OPENLOGIN]: {
-              label: "openlogin",
-              loginMethods: {
-                // Disable facebook and reddit
-                facebook: {
-                  name: "facebook",
-                  showOnModal: false,
-                },
-                reddit: {
-                  name: "reddit",
-                  showOnModal: false,
-                },
-              },
-            },
-          },
-        });
+        await web3auth.initModal();
         setProvider(web3auth.provider);
 
         if (web3auth.connected) {
@@ -62,6 +42,7 @@ function App() {
         }
 
         console.log(loggedIn);
+        // console.log(fuseSDK);
       } catch (error) {
         console.error(error);
       }
@@ -70,6 +51,18 @@ function App() {
     document.body.style.backgroundColor = "#121312";
     // eslint-disable-next-line
   }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     if (loggedIn && provider) {
+  //       const ethersProvider = new ethers.providers.Web3Provider(
+  //         web3auth.provider as any
+  //       );
+  //       const signer = ethersProvider.getSigner();
+  //       const publicApiKey = "pk_API_KEY";
+  //       setFuseSDK(await FuseSDK.init(publicApiKey, signer));
+  //     }
+  //   })();
+  // }, [provider, loggedIn]);
 
   useEffect(() => {
     if (loggedIn) {
