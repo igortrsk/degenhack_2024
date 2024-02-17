@@ -3,7 +3,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Modal from "@mui/material/Modal";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 import logoPC from "../Assets/amogpng.png";
 import checkMark from "../Assets/check-mark-svgrepo-com.svg";
@@ -12,9 +12,10 @@ import { getTokenData, sendTx } from "../common";
 interface HomeProps {
   loggedIn: boolean;
   login: () => void; // Define the type of the function
+  getBalance: () => Promise<string | undefined>;
 }
 
-const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
+const Home: React.FC<HomeProps> = ({ loggedIn, login, getBalance }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -22,7 +23,15 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
   const [recAddr, setRecAddr] = useState<string>("");
   const [sendAmount, setSendAmount] = useState<number>(0);
   const [sendMsg, setSendMsg] = useState<string>("");
+  const [userBalance, setUserBalance] = useState<string | undefined>();
 
+  useEffect(() => {
+    const getUserBalance = async () => {
+      const bal: string | undefined = await getBalance();
+      setUserBalance(bal);
+    };
+    getUserBalance();
+  }, [loggedIn]);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
   };
@@ -113,7 +122,9 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
             {/* Tokens */}
             <div>
               <div className="flex flex-row gap-2">
-                <p className="font-main text-small text-[#ffffff]">11 FUSE</p>
+                <p className="font-main text-small text-[#ffffff]">
+                  {userBalance} FUSE
+                </p>
                 <p className="text-[#12ff81] font-main text-small">($0.73)</p>
               </div>
               <div className="flex flex-row gap-2">
