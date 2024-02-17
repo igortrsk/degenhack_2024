@@ -34,6 +34,13 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
   };
   return (
     <div>
+      <button
+        className=" border-[#12ff81] border-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        type="button"
+        onClick={getTokenData}
+      >
+        <p className="text-[#12ff81]">test</p>
+      </button>
       {!loggedIn ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mx-auto justify-center items-center py-16">
           <div className="bg-gradient-to-r from-[#27eb0e] from-81% to-[#2c65bb] to-27% rounded-lg p-16 flex flex-col">
