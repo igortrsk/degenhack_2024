@@ -67,6 +67,7 @@ function App() {
     };
     init();
     document.body.style.backgroundColor = "#121312";
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -79,6 +80,7 @@ function App() {
           console.error("Error fetching address:", error);
         });
     }
+    // eslint-disable-next-line
   }, [loggedIn]);
 
   // Function to handle login
