@@ -4,7 +4,7 @@ import Navbar from "./Components/Navbar";
 import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/modal";
 import { CHAIN_NAMESPACES, WALLET_ADAPTERS, IProvider } from "@web3auth/base";
-import { FuseSDK } from "@fuseio/fusebox-web-sdk";
+// import { FuseSDK } from "@fuseio/fusebox-web-sdk";
 import Web3 from "web3";
 
 const clientId = "very cool clientID";
@@ -29,7 +29,7 @@ const web3auth = new Web3Auth({
 function App() {
   const [provider, setProvider] = useState<IProvider | null>(null);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [fuseSDK, setFuseSDK] = useState<FuseSDK | null>(null);
+  // const [fuseSDK, setFuseSDK] = useState<FuseSDK | null>(null);
   const [address, setAddress] = useState<string | null>(null);
 
   // useEffect to initialize Web3Auth
@@ -95,14 +95,14 @@ function App() {
   };
 
   // Function to get user information
-  const getUserInfo = async () => {
-    try {
-      const user = await web3auth.getUserInfo();
-      console.log(user);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const getUserInfo = async () => {
+  //   try {
+  //     const user = await web3auth.getUserInfo();
+  //     console.log(user);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   // Function to handle logout
   const logout = async () => {
@@ -116,17 +116,17 @@ function App() {
     }
   };
 
-  const getAccounts = async () => {
-    if (!provider) {
-      console.log("Provider not initialized yet");
-      return;
-    }
+  // const getAccounts = async () => {
+  //   if (!provider) {
+  //     console.log("Provider not initialized yet");
+  //     return;
+  //   }
 
-    const web3 = new Web3(provider as any);
-    const address = await web3.eth.getAccounts();
-    const scaAddress = fuseSDK?.wallet.getSender();
-    console.log(`EOA: ${address}`, `SCA: ${scaAddress}`);
-  };
+  //   const web3 = new Web3(provider as any);
+  //   const address = await web3.eth.getAccounts();
+  //   const scaAddress = fuseSDK?.wallet.getSender();
+  //   console.log(`EOA: ${address}`, `SCA: ${scaAddress}`);
+  // };
 
   async function accAddr() {
     console.log("running");
@@ -143,48 +143,48 @@ function App() {
     }
   }
   // Function to get user balance
-  const getBalance = async () => {
-    if (!provider) {
-      console.log("Provider not initialized yet");
-      return;
-    }
+  // const getBalance = async () => {
+  //   if (!provider) {
+  //     console.log("Provider not initialized yet");
+  //     return;
+  //   }
 
-    const web3 = new Web3(provider as any);
-    const address = (await web3.eth.getAccounts())[0];
-    const balance = web3.utils.fromWei(
-      await web3.eth.getBalance(address),
-      "ether"
-    );
-    console.log(`Balance: ${balance} ETH`);
-  };
-  const signMessage = async () => {
-    if (!provider) {
-      uiConsole("provider not initialized yet");
-      return;
-    }
-    const web3 = new Web3(provider as any);
+  //   const web3 = new Web3(provider as any);
+  //   const address = (await web3.eth.getAccounts())[0];
+  //   const balance = web3.utils.fromWei(
+  //     await web3.eth.getBalance(address),
+  //     "ether"
+  //   );
+  //   console.log(`Balance: ${balance} ETH`);
+  // };
+  // const signMessage = async () => {
+  //   if (!provider) {
+  //     uiConsole("provider not initialized yet");
+  //     return;
+  //   }
+  //   const web3 = new Web3(provider as any);
 
-    //   // Get user's Ethereum public address
-    const fromAddress = (await web3.eth.getAccounts())[0];
+  //   //   // Get user's Ethereum public address
+  //   const fromAddress = (await web3.eth.getAccounts())[0];
 
-    const originalMessage = "YOUR_MESSAGE";
+  //   const originalMessage = "YOUR_MESSAGE";
 
-    //   // Sign the message
-    const signedMessage = await web3.eth.personal.sign(
-      originalMessage,
-      fromAddress,
-      "test password!" // configure your own password here.
-    );
-    uiConsole(signedMessage);
-  };
+  //   //   // Sign the message
+  //   const signedMessage = await web3.eth.personal.sign(
+  //     originalMessage,
+  //     fromAddress,
+  //     "test password!" // configure your own password here.
+  //   );
+  //   uiConsole(signedMessage);
+  // };
 
-  function uiConsole(...args: any[]): void {
-    const el = document.querySelector("#console>p");
-    if (el) {
-      el.innerHTML = JSON.stringify(args || {}, null, 2);
-    }
-    console.log(...args);
-  }
+  // function uiConsole(...args: any[]): void {
+  //   const el = document.querySelector("#console>p");
+  //   if (el) {
+  //     el.innerHTML = JSON.stringify(args || {}, null, 2);
+  //   }
+  //   console.log(...args);
+  // }
 
   return (
     <div className="bg-[#121312]">
