@@ -20,7 +20,7 @@ export default async function sendTestTx(addr: string, msg: string) {
   });
 
   console.log(
-    `Smart account address: https://explorer.fuse.io/address/${fuseSDK.wallet.getSender()}`
+    `Smart account address: https://explorer.fuse.io/address/${fuseSDK.wallet.getSender()}. Make sure to send some funds to it before you try to pay people.`
   );
 
   const to = "0x5dCcCAAd516D68E01823AfF6E75dE8bE73fb57bC"; // for vitalik.eth
