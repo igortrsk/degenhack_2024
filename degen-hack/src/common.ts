@@ -28,7 +28,9 @@ export default async function sendTestTx(addr: string, msg: string) {
   const data = new TextEncoder().encode("Hello there, just testing ;) ");
   const res = await fuseSDK.callContract(to, value, data);
 
-  console.log(`UserOpHash: ${res?.userOpHash}`);
+  console.log(
+    `UserOpHash generated: https://jiffyscan.xyz/userOpHash/${res?.userOpHash}?network=fuse`
+  );
   console.log("Waiting for transaction...");
 
   const receipt = await res?.wait();
