@@ -7,6 +7,11 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 
 interface HomeProps {
   loggedIn: boolean;
@@ -17,6 +22,14 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [value, setValue] = useState("token");
+  const [recAddr, setRecAddr] = useState<string>("");
+  const [sendAmount, setSendAmount] = useState<number>(0);
+  const [sendMsg, setSendMsg] = useState<string>("");
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue((event.target as HTMLInputElement).value);
+  };
   return (
     <div>
       {!loggedIn ? (
@@ -145,27 +158,127 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
                     sx={{
                       borderRadius: "0.5rem",
                       position: "absolute" as "aboslute",
-                      top: "50%",
+                      top: "35%",
                       left: "50%",
                       transform: "translate(-50%, -50%)",
                       width: 400,
                       bgcolor: "#1c1c1c",
-                      border: "2px solid #12ff81",
+                      border: "1px solid #12ff81",
                       boxShadow: 24,
                       p: 4,
                     }}
                   >
-                    <Typography
-                      id="modal-modal-title"
-                      variant="h6"
-                      component="h2"
-                    >
-                      Text in a modal
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                      Duis mollis, est non commodo luctus, nisi erat porttitor
-                      ligula.
-                    </Typography>
+                    <div>
+                      {" "}
+                      <div className="flex flex-row">
+                        <RadioGroup
+                          aria-labelledby="demo-controlled-radio-buttons-group"
+                          name="controlled-radio-buttons-group"
+                          value={value}
+                          onChange={handleChange}
+                          sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                          }}
+                        >
+                          <FormControlLabel
+                            value="token"
+                            control={
+                              <Radio
+                                sx={{
+                                  color: "#fff",
+                                  "&.Mui-checked": {
+                                    color: "#12ff81",
+                                  },
+                                }}
+                              />
+                            }
+                            sx={{ color: "#fff" }}
+                            label="Token"
+                          />
+                          <FormControlLabel
+                            value="message"
+                            control={
+                              <Radio
+                                sx={{
+                                  color: "#fff",
+                                  "&.Mui-checked": {
+                                    color: "#12ff81",
+                                  },
+                                }}
+                              />
+                            }
+                            sx={{ color: "#fff" }}
+                            label="Message"
+                          />
+                        </RadioGroup>
+                      </div>
+                    </div>
+                    <div>
+                      {value === "token" ? (
+                        <form className="shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                          <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2">
+                              Reciving Address
+                            </label>
+                            <input
+                              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                              type="text"
+                              placeholder="0xFFFF...FFF"
+                            />
+                          </div>
+                          <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2">
+                              Amount
+                            </label>
+                            <input
+                              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                              type="number"
+                              placeholder="Amount to transfer"
+                            />
+                          </div>
+                          <div className="flex items-center justify-center">
+                            <button
+                              className=" border-[#12ff81] border-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                              type="button"
+                            >
+                              <p className="text-[#12ff81]">Send</p>
+                            </button>
+                          </div>
+                        </form>
+                      ) : (
+                        <form className="shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                          <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2">
+                              Reciving Addr
+                            </label>
+                            <input
+                              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                              type="text"
+                              placeholder="0xFFFF...FFF"
+                            />
+                          </div>
+                          <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2">
+                              Message
+                            </label>
+                            <input
+                              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                              type="text"
+                              placeholder="Hello Vitalik"
+                            />
+                          </div>
+                          <div className="flex items-center justify-center">
+                            <button
+                              className=" border-[#12ff81] border-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                              type="button"
+                            >
+                              <p className="text-[#12ff81]">Send</p>
+                            </button>
+                          </div>
+                        </form>
+                      )}
+                    </div>
                   </Box>
                 </Modal>
                 <button className="border-2 border-[#12ff81] rounded-md px-1 py-px cursor-pointer">
@@ -403,31 +516,6 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
             />
           </div>
         </div>
-        // <div>
-        // <button onClick={logout} className="text-white">
-        //   LOGOUT
-        // </button>
-        //   <button onClick={getAccounts} className="text-white">
-        //     getAccounts
-        //   </button>
-        //   <button onClick={getBalance} className="text-white">
-        //     getBalance
-        //   </button>
-        //   <button onClick={signMessage} className="text-white">
-        //     signMessage
-        //   </button>
-        //   <button onClick={getUserInfo} className="text-white">
-        //     getUserInfo
-        //   </button>
-        //   {address != (null || undefined) ? (
-        //     <div className="flex gap-2">
-        //       <Jazzicon diameter={25} seed={jsNumberForAddress(address)} />
-        //       <p className="text-white">{sliceFunct()}</p>
-        //     </div>
-        //   ) : (
-        //     <></>
-        //   )}
-        // </div>
       )}
     </div>
   );
