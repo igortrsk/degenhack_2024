@@ -1,13 +1,13 @@
-import { useState } from "react";
-import logoPC from "../Assets/amogpng.png";
-import checkMark from "../Assets/check-mark-svgrepo-com.svg";
-import sendTestTx from "../common";
-import { PieChart } from "react-minimal-pie-chart";
 import Box from "@mui/material/Box";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import Modal from "@mui/material/Modal";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import { useState } from "react";
+import { PieChart } from "react-minimal-pie-chart";
+import logoPC from "../Assets/amogpng.png";
+import checkMark from "../Assets/check-mark-svgrepo-com.svg";
+import { getTokenData, sendTx } from "../common";
 
 interface HomeProps {
   loggedIn: boolean;
@@ -30,7 +30,7 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
   const handleSend = () => {
     console.log(recAddr, sendAmount, sendMsg);
     handleClose();
-    sendTestTx("abc", "efg");
+    sendTx("abc", "efg");
   };
   return (
     <div>

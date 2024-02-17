@@ -32,7 +32,7 @@ export async function getTokenData() {
   );
 }
 
-export default async function sendTestTx(addr: string, msg: string) {
+export async function sendTx(addr: string, msg: string) {
   console.log("sendTestTx...");
 
   //   const privateKey =
