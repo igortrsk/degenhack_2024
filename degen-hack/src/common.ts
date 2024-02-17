@@ -3,9 +3,19 @@ import { ethers } from "ethers";
 import { API_KEY } from "./env";
 
 export async function getTokenData() {
-  const signer = new ethers.providers.Web3Provider((window as any).ethereum);
+  // A Web3Provider wraps a standard Web3 provider, which is
+  // what MetaMask injects as window.ethereum into each page
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-  const abi = [
+  // MetaMask requires requesting permission to connect users accounts
+  await provider.send("eth_requestAccounts", []);
+
+  // The MetaMask plugin also allows signing transactions to
+  // send ether and pay to change state within the blockchain.
+  // For this, you need the account signer...
+  const signer = provider.getSigner();
+
+  const abiTokenContract = [
     "function name() public view returns (string)",
     "function symbol() public view returns (string)",
     "function decimals() public view returns (uint8)",
@@ -14,17 +24,28 @@ export async function getTokenData() {
     "function approve(address _spender, uint256 _value) public returns (bool success)",
   ];
 
-  const dhitContract = new ethers.Contract(
+  const abiVaultContract = [
+    "function deposit(uint _amount) public",
+    "function withdraw(uint _shares) public",
+  ];
+
+  const tokenContract = new ethers.Contract(
     "0x98Df5d96E4CB402982198507D15E6C2A76EE5a3d",
-    abi,
+    abiTokenContract,
     signer
   );
 
-  const name = await dhitContract.name();
-  const symbol = await dhitContract.symbol();
-  const decimals = await dhitContract.decimals();
-  const totalSupply = await dhitContract.totalSupply();
-  const balanceOfO = await dhitContract.balanceOf(
+  const vaultContract = new ethers.Contract(
+    "0xC0b7Ac0586BA2aaA4355d3Be27848571dA7af7c0",
+    abiVaultContract,
+    provider
+  );
+
+  const name = await tokenContract.name();
+  const symbol = await tokenContract.symbol();
+  const decimals = await tokenContract.decimals();
+  const totalSupply = await tokenContract.totalSupply();
+  const balanceOfO = await tokenContract.balanceOf(
     "0x5dCcCAAd516D68E01823AfF6E75dE8bE73fb57bC"
   );
 
@@ -34,8 +55,12 @@ export async function getTokenData() {
       decimals
     )}`
   );
-
   console.log(`O: ${ethers.utils.formatUnits(balanceOfO, decimals)}`);
+
+  // TODO: Get approval
+  const vaultContractWithSigner = vaultContract.connect(signer);
+  const deposit = await vaultContractWithSigner.deposit(0);
+  console.log(deposit);
 }
 
 export async function sendTx(addr: string, msg: string) {
