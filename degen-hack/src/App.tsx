@@ -6,7 +6,6 @@ import { Web3Auth } from "@web3auth/modal";
 import { CHAIN_NAMESPACES, WALLET_ADAPTERS, IProvider } from "@web3auth/base";
 import { FuseSDK } from "@fuseio/fusebox-web-sdk";
 import Web3 from "web3";
-import { log } from "console";
 
 const clientId = "very cool clientID";
 const chainConfig = {
@@ -31,7 +30,7 @@ function App() {
   const [provider, setProvider] = useState<IProvider | null>(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [fuseSDK, setFuseSDK] = useState<FuseSDK | null>(null);
-  const [address, setAddress] = useState<string | null>();
+  const [address, setAddress] = useState<string | null>(null);
 
   // useEffect to initialize Web3Auth
   useEffect(() => {

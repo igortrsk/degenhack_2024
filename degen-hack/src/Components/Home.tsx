@@ -1,17 +1,13 @@
-import { PropsWithChildren, useState } from "react";
+import { useState } from "react";
 import logoPC from "../Assets/amogpng.png";
 import checkMark from "../Assets/check-mark-svgrepo-com.svg";
 import sendTestTx from "../common";
 import { PieChart } from "react-minimal-pie-chart";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
 
 interface HomeProps {
   loggedIn: boolean;
@@ -318,6 +314,7 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
                 <div className="flex flex-row gap-2">
                   <a
                     target="_blank"
+                    rel="noreferrer"
                     className="cursor-pointer"
                     href="https://explorer.fuse.io/address/0x5dCcCAAd516D68E01823AfF6E75dE8bE73fb57bC"
                   >
@@ -329,6 +326,7 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
                     className="cursor-pointer"
                     href="https://explorer.fuse.io/tx/0x23a89806bdf507bcd5e23df2b2854cb6d525f763b691dc462570ac0f4633529c"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -345,6 +343,7 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
                   </a>
                   <a
                     target="_blank"
+                    rel="noreferrer"
                     className="cursor-pointer"
                     href="https://explorer.fuse.io/address/0x5dCcCAAd516D68E01823AfF6E75dE8bE73fb57bC"
                   >
@@ -360,6 +359,7 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
                 <div className="flex flex-row gap-2">
                   <a
                     target="_blank"
+                    rel="noreferrer"
                     className="cursor-pointer"
                     href="https://explorer.fuse.io/address/0x5dCcCAAd516D68E01823AfF6E75dE8bE73fb57bC"
                   >
@@ -371,6 +371,7 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
                     className="cursor-pointer"
                     href="https://explorer.fuse.io/tx/0x23a89806bdf507bcd5e23df2b2854cb6d525f763b691dc462570ac0f4633529c"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -388,6 +389,7 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
 
                   <a
                     target="_blank"
+                    rel="noreferrer"
                     className="cursor-pointer"
                     href="https://explorer.fuse.io/address/0x5dCcCAAd516D68E01823AfF6E75dE8bE73fb57bC"
                   >
