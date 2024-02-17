@@ -1,198 +1,22 @@
+import { PropsWithChildren, useState } from "react";
 import logoPC from "../Assets/amogpng.png";
 import checkMark from "../Assets/check-mark-svgrepo-com.svg";
 import sendTestTx from "../common";
-import { useEffect, useState } from "react";
-import { Web3Auth } from "@web3auth/modal";
-import { CHAIN_NAMESPACES, WALLET_ADAPTERS, IProvider } from "@web3auth/base";
-import { FuseSDK } from "@fuseio/fusebox-web-sdk";
-import Web3 from "web3";
-import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
-const clientId = "very cool clientID";
-const chainConfig = {
-  chainNamespace: CHAIN_NAMESPACES.EIP155,
-  chainId: "0x7A", // Please use 0x1 for Mainnet
-  rpcTarget: "https://rpc.fuse.io",
-  displayName: "Fuse Mainnet",
-  blockExplorer: "https://explorer.fuse.io/",
-  ticker: "FUSE",
-  tickerName: "Fuse",
-};
+import { PieChart } from "react-minimal-pie-chart";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
 
-const web3auth = new Web3Auth({
-  uiConfig: {
-    appName: "hackathon2024",
-  },
-  clientId,
-  chainConfig,
-  web3AuthNetwork: "sapphire_mainnet",
-});
-function Home() {
-  const [provider, setProvider] = useState<IProvider | null>(null);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [fuseSDK, setFuseSDK] = useState<FuseSDK | null>(null);
-  const [address, setAddress] = useState<string | null>();
+interface HomeProps {
+  loggedIn: boolean;
+  login: () => void; // Define the type of the function
+}
 
-  // useEffect to initialize Web3Auth
-  useEffect(() => {
-    const init = async () => {
-      try {
-        await web3auth.initModal({
-          modalConfig: {
-            [WALLET_ADAPTERS.OPENLOGIN]: {
-              label: "openlogin",
-              loginMethods: {
-                // Disable facebook and reddit
-                facebook: {
-                  name: "facebook",
-                  showOnModal: false,
-                },
-                reddit: {
-                  name: "reddit",
-                  showOnModal: false,
-                },
-              },
-            },
-          },
-        });
-        setProvider(web3auth.provider);
-
-        if (web3auth.connected) {
-          setLoggedIn(true);
-        }
-
-        console.log(loggedIn);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    init();
-  }, []);
-
-  useEffect(() => {
-    if (loggedIn) {
-      accAddr()
-        .then((userAddress) => {
-          setAddress(userAddress);
-        })
-        .catch((error) => {
-          console.error("Error fetching address:", error);
-        });
-    }
-  }, [loggedIn]);
-
-  // Function to handle login
-  const login = async () => {
-    try {
-      const web3authProvider = await web3auth.connect();
-      setProvider(web3authProvider);
-      if (web3auth.connected) {
-        setLoggedIn(true);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // Function to get user information
-  const getUserInfo = async () => {
-    try {
-      const user = await web3auth.getUserInfo();
-      console.log(user);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const sliceFunct = () => {
-    const firstSixCharacters = address?.slice(0, 6);
-    const lastThreeCharacters = address?.slice(-3);
-    const shortenedAddress = `${firstSixCharacters}...${lastThreeCharacters}`;
-    return shortenedAddress;
-  };
-
-  // Function to handle logout
-  const logout = async () => {
-    try {
-      await web3auth.logout();
-      setProvider(null);
-      setLoggedIn(false);
-      console.log("Logged out");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getAccounts = async () => {
-    if (!provider) {
-      console.log("Provider not initialized yet");
-      return;
-    }
-
-    const web3 = new Web3(provider as any);
-    const address = await web3.eth.getAccounts();
-    const scaAddress = fuseSDK?.wallet.getSender();
-    console.log(`EOA: ${address}`, `SCA: ${scaAddress}`);
-  };
-
-  async function accAddr() {
-    console.log("running");
-    if (!provider) {
-      console.log("Provider not initialized yet");
-      throw new Error("Provider not initialized yet");
-    }
-    const web3 = new Web3(provider as any);
-    const addresses = await web3.eth.getAccounts();
-    if (addresses && addresses.length > 0) {
-      return addresses[0];
-    } else {
-      throw new Error("No accounts found");
-    }
-  }
-  // Function to get user balance
-  const getBalance = async () => {
-    if (!provider) {
-      console.log("Provider not initialized yet");
-      return;
-    }
-
-    const web3 = new Web3(provider as any);
-    const address = (await web3.eth.getAccounts())[0];
-    const balance = web3.utils.fromWei(
-      await web3.eth.getBalance(address),
-      "ether"
-    );
-    console.log(`Balance: ${balance} ETH`);
-  };
-  const signMessage = async () => {
-    if (!provider) {
-      uiConsole("provider not initialized yet");
-      return;
-    }
-    const web3 = new Web3(provider as any);
-
-    //   // Get user's Ethereum public address
-    const fromAddress = (await web3.eth.getAccounts())[0];
-
-    const originalMessage = "YOUR_MESSAGE";
-
-    //   // Sign the message
-    const signedMessage = await web3.eth.personal.sign(
-      originalMessage,
-      fromAddress,
-      "test password!" // configure your own password here.
-    );
-    uiConsole(signedMessage);
-  };
-
-  function uiConsole(...args: any[]): void {
-    const el = document.querySelector("#console>p");
-    if (el) {
-      el.innerHTML = JSON.stringify(args || {}, null, 2);
-    }
-    console.log(...args);
-  }
-  // IM
-
+const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <div>
       {!loggedIn ? (
@@ -291,7 +115,10 @@ function Home() {
                 Your transactions
               </h3>
               <div className="flex gap-4">
-                <button className="border-2 border-[#12ff81] rounded-md px-1 py-px cursor-pointer">
+                <button
+                  className="border-2 border-[#12ff81] rounded-md px-1 py-px cursor-pointer"
+                  onClick={handleOpen}
+                >
                   <span className="flex flex-row gap-2 justifty-center items-center">
                     <p className="text-[#12ff81]">Send</p>
                     <svg
@@ -308,6 +135,39 @@ function Home() {
                     </svg>
                   </span>
                 </button>
+                <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box
+                    sx={{
+                      borderRadius: "0.5rem",
+                      position: "absolute" as "aboslute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                      width: 400,
+                      bgcolor: "#1c1c1c",
+                      border: "2px solid #12ff81",
+                      boxShadow: 24,
+                      p: 4,
+                    }}
+                  >
+                    <Typography
+                      id="modal-modal-title"
+                      variant="h6"
+                      component="h2"
+                    >
+                      Text in a modal
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                      Duis mollis, est non commodo luctus, nisi erat porttitor
+                      ligula.
+                    </Typography>
+                  </Box>
+                </Modal>
                 <button className="border-2 border-[#12ff81] rounded-md px-1 py-px cursor-pointer">
                   <span className="flex flex-row gap-2 justifty-center items-center">
                     <p className="text-[#12ff81]">Withdraw</p>
@@ -423,7 +283,7 @@ function Home() {
             <div className="flex flex-row gap-4 justify-between">
               <h3 className="text-small text-[#a1a3a7] font-semibold font-main">
                 Your vaults
-              </h3>
+              </h3>{" "}
               <button className="border-2 border-[#12ff81] rounded-md px-1 py-px cursor-pointer">
                 <span className="flex flex-row gap-2 justifty-center items-center">
                   <p className="text-[#12ff81]">Create new vault</p>
@@ -441,6 +301,7 @@ function Home() {
                 </span>
               </button>
             </div>
+
             <div className="relative flex py-5 items-center">
               <div className="flex-grow border-t border-[#12ff81]"></div>
             </div>
@@ -508,12 +369,44 @@ function Home() {
               </div>
             </div>
           </div>
-          <div className="bg-[#1c1c1c] w-full h-full rounded-lg p-4 "></div>
+          <div className="bg-[#1c1c1c] w-full h-full rounded-lg p-4 flex justify-center">
+            <PieChart
+              className="w-[50%]"
+              data={[
+                {
+                  title: "FUSE",
+                  value: 10,
+                  color:
+                    "#" + Math.floor(Math.random() * 16777215).toString(16),
+                },
+                {
+                  title: "WBTC",
+                  value: 15,
+                  color:
+                    "#" + Math.floor(Math.random() * 16777215).toString(16),
+                },
+                {
+                  title: "BUSD",
+                  value: 20,
+                  color:
+                    "#" + Math.floor(Math.random() * 16777215).toString(16),
+                },
+              ]}
+              label={({ dataEntry }) => dataEntry.title}
+              labelStyle={{
+                fill: "#fff",
+                opacity: 0.75,
+                pointerEvents: "none",
+                fontSize: "0.5rem",
+              }}
+              labelPosition={100 - 80 / 2}
+            />
+          </div>
         </div>
         // <div>
-        //   <button onClick={logout} className="text-white">
-        //     LOGOUT
-        //   </button>
+        // <button onClick={logout} className="text-white">
+        //   LOGOUT
+        // </button>
         //   <button onClick={getAccounts} className="text-white">
         //     getAccounts
         //   </button>
@@ -538,6 +431,6 @@ function Home() {
       )}
     </div>
   );
-}
+};
 
 export default Home;
