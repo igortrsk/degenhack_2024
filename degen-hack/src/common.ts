@@ -14,21 +14,29 @@ export default async function sendTestTx(addr: string, msg: string) {
   // })();
 
   const apiKey = API_KEY;
-  const credentials = new ethers.Wallet("INSERT_PRIVKEY_HERE"); // FIXME
+
+  // FIXME:
+  const credentials = new ethers.Wallet(
+    "b7e3bd038939e922525a206d1273a139239362915431c95c8440c3aa3031f87f"
+  );
+  // this is a dev privkey for https://explorer.fuse.io/address/0x8e3B791630e941302179F242e960c97E2ac4b844
+
   const fuseSDK = await FuseSDK.init(apiKey, credentials, {
     withPaymaster: true,
   });
 
   console.log(
-    `Smart account address: https://explorer.fuse.io/address/${fuseSDK.wallet.getSender()}`
+    `Smart account address: https://explorer.fuse.io/address/${fuseSDK.wallet.getSender()}. Make sure to send some funds to it before you try to pay people.`
   );
 
-  const to = "0xd8da6bf26964af9d7eed9e03e53415d37aa96045"; // for vitalik.eth
+  const to = "0x5dCcCAAd516D68E01823AfF6E75dE8bE73fb57bC"; // for vitalik.eth
   const value = ethers.utils.parseEther("0");
-  const data = new TextEncoder().encode("testing");
+  const data = new TextEncoder().encode("Hello there, just testing ;) ");
   const res = await fuseSDK.callContract(to, value, data);
 
-  console.log(`UserOpHash: ${res?.userOpHash}`);
+  console.log(
+    `UserOpHash generated: https://jiffyscan.xyz/userOpHash/${res?.userOpHash}?network=fuse`
+  );
   console.log("Waiting for transaction...");
 
   const receipt = await res?.wait();
