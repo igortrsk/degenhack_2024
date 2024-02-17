@@ -28,6 +28,7 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
   };
 
   const handleSend = () => {
+    console.log(recAddr, sendAmount, sendMsg);
     handleClose();
     sendTestTx("abc", "efg");
   };
