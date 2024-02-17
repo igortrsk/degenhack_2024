@@ -10,6 +10,7 @@ export async function getTokenData() {
     "function symbol() public view returns (string)",
     "function decimals() public view returns (uint8)",
     "function totalSupply() public view returns (uint256)",
+    "function balanceOf(address account) public view returns (uint256)",
     "function approve(address _spender, uint256 _value) public returns (bool success)",
   ];
 
@@ -23,6 +24,9 @@ export async function getTokenData() {
   const symbol = await dhitContract.symbol();
   const decimals = await dhitContract.decimals();
   const totalSupply = await dhitContract.totalSupply();
+  const balanceOfO = await dhitContract.balanceOf(
+    "0x5dCcCAAd516D68E01823AfF6E75dE8bE73fb57bC"
+  );
 
   console.log(
     `${symbol} (${name}) total supply is ${ethers.utils.formatUnits(
@@ -30,6 +34,8 @@ export async function getTokenData() {
       decimals
     )}`
   );
+
+  console.log(`O: ${ethers.utils.formatUnits(balanceOfO, decimals)}`);
 }
 
 export async function sendTx(addr: string, msg: string) {
