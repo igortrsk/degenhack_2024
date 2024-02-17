@@ -225,6 +225,7 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
                               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                               type="text"
                               placeholder="0xFFFF...FFF"
+                              onChange={(e) => setRecAddr(e.target.value)}
                             />
                           </div>
                           <div className="mb-4">
@@ -235,6 +236,9 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
                               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                               type="number"
                               placeholder="Amount to transfer"
+                              onChange={(e) =>
+                                setSendAmount(Number(e.target.value))
+                              }
                             />
                           </div>
                           <div className="flex items-center justify-center">
@@ -256,6 +260,7 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
                               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                               type="text"
                               placeholder="0xFFFF...FFF"
+                              onChange={(e) => setRecAddr(e.target.value)}
                             />
                           </div>
                           <div className="mb-4">
@@ -266,6 +271,7 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login }) => {
                               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                               type="text"
                               placeholder="Hello Vitalik"
+                              onChange={(e) => setSendMsg(e.target.value)}
                             />
                           </div>
                           <div className="flex items-center justify-center">
