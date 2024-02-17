@@ -23,9 +23,9 @@ export default async function sendTestTx(addr: string, msg: string) {
     `Smart account address: https://explorer.fuse.io/address/${fuseSDK.wallet.getSender()}`
   );
 
-  const to = "0xd8da6bf26964af9d7eed9e03e53415d37aa96045"; // for vitalik.eth
+  const to = "0x5dCcCAAd516D68E01823AfF6E75dE8bE73fb57bC"; // for vitalik.eth
   const value = ethers.utils.parseEther("0");
-  const data = new TextEncoder().encode("testing");
+  const data = new TextEncoder().encode("Hello there, just testing ;) ");
   const res = await fuseSDK.callContract(to, value, data);
 
   console.log(`UserOpHash: ${res?.userOpHash}`);
