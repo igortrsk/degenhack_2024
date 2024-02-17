@@ -4,10 +4,11 @@ import Navbar from "./Components/Navbar";
 import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/modal";
 import { CHAIN_NAMESPACES, WALLET_ADAPTERS, IProvider } from "@web3auth/base";
+import { CLIENT_ID } from "./env";
 // import { FuseSDK } from "@fuseio/fusebox-web-sdk";
 import Web3 from "web3";
 
-const clientId = "very cool clientID";
+const clientId = CLIENT_ID;
 const chainConfig = {
   chainNamespace: CHAIN_NAMESPACES.EIP155,
   chainId: "0x7A", // Please use 0x1 for Mainnet
