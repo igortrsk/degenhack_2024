@@ -29,8 +29,8 @@ export default async function sendTestTx(addr: string, msg: string) {
     `Smart account address: https://explorer.fuse.io/address/${fuseSDK.wallet.getSender()}. Make sure to send some funds to it before you try to pay people.`
   );
 
-  const to = "0x5dCcCAAd516D68E01823AfF6E75dE8bE73fb57bC"; // for vitalik.eth
-  const value = ethers.utils.parseEther("0");
+  const to = "0x5dCcCAAd516D68E01823AfF6E75dE8bE73fb57bC";
+  const value = ethers.utils.parseEther("0"); // or change to a higher number once SC account from above loaded up
   const data = new TextEncoder().encode("Hello there, just testing ;) ");
   const res = await fuseSDK.callContract(to, value, data);
 
