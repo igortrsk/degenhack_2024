@@ -8,14 +8,21 @@ import { PieChart } from "react-minimal-pie-chart";
 import logoPC from "../Assets/amogpng.png";
 import checkMark from "../Assets/check-mark-svgrepo-com.svg";
 import { getTokenData, sendTx } from "../common";
+import { FuseSDK } from "@fuseio/fusebox-web-sdk";
 
 interface HomeProps {
   loggedIn: boolean;
   login: () => void; // Define the type of the function
   getBalance: () => Promise<string | undefined>;
+  fuseSDK: FuseSDK | null;
 }
 
-const Home: React.FC<HomeProps> = ({ loggedIn, login, getBalance }) => {
+const Home: React.FC<HomeProps> = ({
+  loggedIn,
+  login,
+  getBalance,
+  fuseSDK,
+}) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -39,7 +46,11 @@ const Home: React.FC<HomeProps> = ({ loggedIn, login, getBalance }) => {
   const handleSend = () => {
     console.log(recAddr, sendAmount, sendMsg);
     handleClose();
-    sendTx("abc", "efg");
+    if (fuseSDK !== null) {
+      sendTx(recAddr, sendMsg, fuseSDK);
+    } else {
+      console.log("Fuse sdk is null!");
+    }
   };
   return (
     <div>

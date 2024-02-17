@@ -4,7 +4,7 @@ import Navbar from "./Components/Navbar";
 import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/modal";
 import { CHAIN_NAMESPACES, IProvider } from "@web3auth/base";
-import { CLIENT_ID } from "./env";
+import { CLIENT_ID, API_KEY } from "./env";
 import { FuseSDK } from "@fuseio/fusebox-web-sdk";
 import Web3 from "web3";
 import { ethers } from "ethers";
@@ -53,18 +53,20 @@ function App() {
     document.body.style.backgroundColor = "#121312";
     // eslint-disable-next-line
   }, []);
-  // useEffect(() => {
-  //   (async () => {
-  //     if (loggedIn && provider) {
-  //       const ethersProvider = new ethers.providers.Web3Provider(
-  //         web3auth.provider as any
-  //       );
-  //       const signer = ethersProvider.getSigner();
-  //       const publicApiKey = "pk_API_KEY";
-  //       setFuseSDK(await FuseSDK.init(publicApiKey, signer));
-  //     }
-  //   })();
-  // }, [provider, loggedIn]);
+  useEffect(() => {
+    (async () => {
+      if (loggedIn && provider) {
+        const ethersProvider = new ethers.providers.Web3Provider(
+          web3auth.provider as any
+        );
+        const signer = ethersProvider.getSigner();
+        const publicApiKey = API_KEY;
+        setFuseSDK(
+          await FuseSDK.init(publicApiKey, signer, { withPaymaster: true })
+        );
+      }
+    })();
+  }, [provider, loggedIn]);
 
   useEffect(() => {
     if (loggedIn) {
@@ -159,27 +161,6 @@ function App() {
     return balance;
   };
 
-  // const signMessage = async () => {
-  //   if (!provider) {
-  //     uiConsole("provider not initialized yet");
-  //     return;
-  //   }
-  //   const web3 = new Web3(provider as any);
-
-  //   //   // Get user's Ethereum public address
-  //   const fromAddress = (await web3.eth.getAccounts())[0];
-
-  //   const originalMessage = "YOUR_MESSAGE";
-
-  //   //   // Sign the message
-  //   const signedMessage = await web3.eth.personal.sign(
-  //     originalMessage,
-  //     fromAddress,
-  //     "test password!" // configure your own password here.
-  //   );
-  //   uiConsole(signedMessage);
-  // };
-
   function uiConsole(...args: any[]): void {
     const el = document.querySelector("#console>p");
     if (el) {
@@ -192,7 +173,12 @@ function App() {
     <div className="bg-[#121312]">
       <Navbar address={address} logout={logout} />
       <div className="h-full w-[90%] flex mx-auto flex-col">
-        <Home loggedIn={loggedIn} login={login} getBalance={getBalance} />
+        <Home
+          loggedIn={loggedIn}
+          login={login}
+          getBalance={getBalance}
+          fuseSDK={fuseSDK}
+        />
       </div>
       {/* <WalletCard /> */}
     </div>
