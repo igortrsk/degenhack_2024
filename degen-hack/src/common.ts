@@ -14,7 +14,7 @@ export default async function sendTestTx() {
   // })();
 
   const apiKey = API_KEY;
-  const credentials = new ethers.Wallet("0xENTERHERE:)");
+  const credentials = new ethers.Wallet("INSERT_PRIVKEY_HERE"); // FIXME
   const fuseSDK = await FuseSDK.init(apiKey, credentials, {
     withPaymaster: true,
   });
