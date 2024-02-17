@@ -1954,14 +1954,25 @@
   dependencies:
     "@floating-ui/dom" "^1.6.1"
 
-"@floating-ui/utils@^0.2.0", "@floating-ui/utils@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.1.tgz#16308cea045f0fc777b6ff20a9f25474dd8293d2"
-  integrity sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==
+"@floating-ui/react@^0.26.9":
+  version "0.26.9"
+  resolved "https://registry.yarnpkg.com/@floating-ui/react/-/react-0.26.9.tgz#bbccbefa0e60c8b7f4c0387ba0fc0607bb65f2cc"
+  integrity sha512-p86wynZJVEkEq2BBjY/8p2g3biQ6TlgT4o/3KgFKyTWoJLU1GZ8wpctwRqtkEl2tseYA+kw7dBAIDFcednfI5w==
+  dependencies:
+    "@floating-ui/react-dom" "^2.0.8"
+    "@floating-ui/utils" "^0.2.1"
+    tabbable "^6.0.1"
 
+"@floating-ui/utils@^0.2.0", "@floating-ui/utils@^0.2.1":
   version "0.2.5"
   resolved "https://registry.yarnpkg.com/@fuseio/fusebox-web-sdk/-/fusebox-web-sdk-0.2.5.tgz#7a6ce2fe3218dd8ca17a68854d828c1e1e958758"
   integrity sha512-1+bupszBwVHlRaWFTRSit4XBVSSwS+vut+ZAm24T9jQSAf+TWzJV6AUwgvSTZIB8TwqCChUUlo5spVxcb+QO5w==
+  dependencies:
+    "@ethersproject/providers" "^5.7.2"
+    axios "^1.5.1"
+    ethers "^5.5.2"
+    userop "^0.3.7"
+
 "@fuseio/fusebox-web-sdk@0.2.7":
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/@fuseio/fusebox-web-sdk/-/fusebox-web-sdk-0.2.7.tgz#22cccbc15d7c6eee398f1ab7d164c44a6c82ac6e"
@@ -12071,6 +12082,11 @@ system-architecture@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npmjs.org/system-architecture/-/system-architecture-0.1.0.tgz"
   integrity sha512-ulAk51I9UVUyJgxlv9M6lFot2WP3e7t8Kz9+IS6D4rVba1tR9kON+Ey69f+1R4Q8cd45Lod6a4IcJIxnzGc/zA==
+
+tabbable@^6.0.1:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-6.2.0.tgz#732fb62bc0175cfcec257330be187dcfba1f3b97"
+  integrity sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==
 
 tailwindcss@^3.0.2, tailwindcss@^3.4.1:
   version "3.4.1"
