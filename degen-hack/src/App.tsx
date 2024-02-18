@@ -3,7 +3,7 @@ import Home from "./Components/Home";
 import Navbar from "./Components/Navbar";
 import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/modal";
-import { CHAIN_NAMESPACES, IProvider } from "@web3auth/base";
+import { CHAIN_NAMESPACES, IProvider, WALLET_ADAPTERS } from "@web3auth/base";
 import { CLIENT_ID, API_KEY } from "./env";
 import { FuseSDK } from "@fuseio/fusebox-web-sdk";
 import Web3 from "web3";
@@ -35,7 +35,24 @@ function App() {
   useEffect(() => {
     const init = async () => {
       try {
-        await web3auth.initModal();
+        await web3auth.initModal({
+          modalConfig: {
+            // Disable Wallet Connect V2
+            [WALLET_ADAPTERS.WALLET_CONNECT_V2]: {
+              label: "wallet_connect",
+              showOnModal: false,
+            },
+            // Disable Metamask
+            [WALLET_ADAPTERS.METAMASK]: {
+              label: "metamask",
+              showOnModal: false,
+            },
+            [WALLET_ADAPTERS.TORUS_EVM]: {
+              label: "metamask",
+              showOnModal: false,
+            },
+          },
+        });
         setProvider(web3auth.provider);
 
         if (web3auth.connected) {
