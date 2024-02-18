@@ -1,15 +1,15 @@
+import { FuseSDK } from "@fuseio/fusebox-web-sdk";
 import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Modal from "@mui/material/Modal";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import { useEffect, useState } from "react";
 import { PieChart } from "react-minimal-pie-chart";
-import logoPC from "../Assets/pie-chart-svgrepo-com.svg";
 import checkMark from "../Assets/check-mark-svgrepo-com.svg";
-import { putTokenVault, withdrawTokenVault, sendTx, sendTk } from "../common";
-import { FuseSDK } from "@fuseio/fusebox-web-sdk";
-import CircularProgress from "@mui/material/CircularProgress";
+import logoPC from "../Assets/pie-chart-svgrepo-com.svg";
+import { putTokenVault, sendTk, sendTx, withdrawTokenVault } from "../common";
 
 interface HomeProps {
   loggedIn: boolean;
@@ -140,49 +140,46 @@ const Home: React.FC<HomeProps> = ({
           <div className="bg-gradient-to-r from-[#27eb0e] from-81% to-[#2c65bb] to-27% rounded-lg p-16 flex flex-col">
             {/* mx auto */}
             <h1 className="text-5xl text-[#121312] pb-8 font-bold font-main">
-              Sign Up For Fuse Ecosystem Now
+              Welcome to Fuzer
             </h1>
             <p className="text-xl text-[#121312] pb-8 font-main font-semibold">
-              Join Fuzer to experience the ease of the Fuse Blockchain! Saving
-              with Vaults? Gasless Transactions? Messages on the blockchain? All
-              just two clicks away!
+              Join the Fuse blockchain ecosystem:
             </p>
             <ul className="">
               <li className="flex flex-row items-center  mb-4">
                 <img src={checkMark} alt="" className="h-4 pr-2" />
                 <p className="font-main font-normal text-sm">
-                  Low cost global payments
+                  Gasless transactions
                 </p>
               </li>
               <li className="flex flex-row items-center  mb-4">
                 <img src={checkMark} alt="" className="h-4 pr-2" />
                 <p className="font-main font-normal text-sm">
-                  Blockchain rails without the hassle
+                  Easy blockchain messaging
                 </p>
               </li>{" "}
               <li className="flex flex-row items-center  mb-4">
                 <img src={checkMark} alt="" className="h-4 pr-2" />
                 <p className="font-main font-normal text-sm">
-                  Open in every way
+                  Saving with vaults
                 </p>
               </li>{" "}
-              <li className="flex flex-row items-center  mb-4">
-                <img src={checkMark} alt="" className="h-4 pr-2" />
-                <p className="font-main font-normal text-sm">Creative</p>
-              </li>
+              <p className="text-xl text-[#121312] pb-8 font-main font-semibold">
+                ... all just two clicks away. No wallets or keys needed!
+              </p>
             </ul>
           </div>
           <div className="bg-[#1c1c1c] w-full h-full rounded-lg p-16 flex flex-col mx-auto align-center items-center border-[#12ff81] border-2">
             <img src={logoPC} alt="logo" className="max-h-16 max-w-16 pb-6" />
             <h1 className="text-2xl text-[#12ff81] text-center pb-6 font-bold font-main">
-              Leave your mark on the Fuse Blockchain today!
+              Leave your mark on the Fuse blockchain!
             </h1>
 
             <button
               className="text-2xl text-[#1c1c1c] font-bold mx-auto py-2 px-8 border-2 rounded-xl bg-[#12ff81] border-[#12ff81]"
               onClick={login}
             >
-              Lunch wallet now
+              Launch Wallet
             </button>
           </div>
         </div>
