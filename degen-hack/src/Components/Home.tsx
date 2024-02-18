@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 import logoPC from "../Assets/amogpng.png";
 import checkMark from "../Assets/check-mark-svgrepo-com.svg";
-import { getTokenData, sendTx, sendTk } from "../common";
+import { putTokenVault, withdrawTokenVault, sendTx, sendTk } from "../common";
 import { FuseSDK } from "@fuseio/fusebox-web-sdk";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -27,7 +27,13 @@ const Home: React.FC<HomeProps> = ({
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [vaultOpen, setVaultOpen] = useState(false);
+  const handleVaultOpen = () => setVaultOpen(true);
+  const handleVaultClose = () => setVaultOpen(false);
+  const [vaultAmount, setVaultAmount] = useState<number>(0);
   const [value, setValue] = useState("token");
+  const [vaultValue, setVaultValue] = useState("vault");
   const [recAddr, setRecAddr] = useState<string>("");
   const [sendAmount, setSendAmount] = useState<number>(0);
   const [sendMsg, setSendMsg] = useState<string>("");
@@ -82,6 +88,20 @@ const Home: React.FC<HomeProps> = ({
     setValue((event.target as HTMLInputElement).value);
   };
 
+  const handleVaultChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setVaultValue((event.target as HTMLInputElement).value);
+  };
+
+  const handleSendVault = () => {
+    handleVaultClose();
+    putTokenVault(vaultAmount);
+  };
+
+  const handleWithdrawVault = () => {
+    handleVaultClose();
+    withdrawTokenVault(vaultAmount);
+  };
+
   const handleSendText = () => {
     handleClose();
     if (fuseSDK !== null) {
@@ -100,13 +120,6 @@ const Home: React.FC<HomeProps> = ({
   };
   return (
     <div>
-      <button
-        className=" border-[#12ff81] border-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        type="button"
-        onClick={getTokenData}
-      >
-        <p className="text-[#12ff81]">test</p>
-      </button>
       {!loggedIn ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mx-auto justify-center items-center py-16">
           <div className="bg-gradient-to-r from-[#27eb0e] from-81% to-[#2c65bb] to-27% rounded-lg p-16 flex flex-col">
@@ -425,7 +438,7 @@ const Home: React.FC<HomeProps> = ({
                       //   <p>{item[3]}</p>
                       //   <p>{item[4]}</p>
                       // </div>
-                      <div className="flex flex-row gap-2 justify-between">
+                      <div className="flex flex-col md:flex-row gap-2 pb-2">
                         <div className="flex flex-row gap-2">
                           <a
                             target="_blank"
@@ -481,12 +494,14 @@ const Home: React.FC<HomeProps> = ({
                             </p>
                           </a>
                         </div>
-                        <p className="font-main text-small text-[#12ff81]">
-                          {item[2]}
-                        </p>
-                        <p className="font-main text-small text-[#12ff81]">
-                          {item[3]} FUSE
-                        </p>
+                        <div className="flex flex-row md:justify-between w-full md:px-4">
+                          <p className="font-main text-small text-[#12ff81] md:pr-0 pr-6">
+                            {item[2]}
+                          </p>
+                          <p className="font-main text-small text-[#12ff81]">
+                            {item[3]} FUSE
+                          </p>
+                        </div>
                       </div>
                     );
                   })}
@@ -497,7 +512,10 @@ const Home: React.FC<HomeProps> = ({
               <h3 className="text-small text-[#a1a3a7] font-semibold font-main">
                 Your vaults
               </h3>{" "}
-              <button className="border-2 border-[#12ff81] rounded-md px-1 py-px cursor-pointer">
+              <button
+                className="border-2 border-[#12ff81] rounded-md px-1 py-px cursor-pointer"
+                onClick={handleVaultOpen}
+              >
                 <span className="flex flex-row gap-2 justifty-center items-center">
                   <p className="text-[#12ff81]">Create new vault</p>
                   <svg
@@ -513,6 +531,115 @@ const Home: React.FC<HomeProps> = ({
                   </svg>
                 </span>
               </button>
+              <Modal
+                open={vaultOpen}
+                onClose={handleVaultClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box
+                  sx={{
+                    borderRadius: "0.5rem",
+                    position: "absolute" as "aboslute",
+                    top: "35%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: 400,
+                    bgcolor: "#1c1c1c",
+                    border: "1px solid #12ff81",
+                    boxShadow: 24,
+                    p: 4,
+                  }}
+                >
+                  <div>
+                    {" "}
+                    <div className="flex flex-row">
+                      <RadioGroup
+                        aria-labelledby="demo-controlled-radio-buttons-group"
+                        name="controlled-radio-buttons-group"
+                        value={vaultValue}
+                        onChange={handleVaultChange}
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row",
+                        }}
+                      >
+                        <FormControlLabel
+                          value="withdraw"
+                          control={
+                            <Radio
+                              sx={{
+                                color: "#fff",
+                                "&.Mui-checked": {
+                                  color: "#12ff81",
+                                },
+                              }}
+                            />
+                          }
+                          sx={{ color: "#fff" }}
+                          label="Withdraw"
+                        />
+                        <FormControlLabel
+                          value="vault"
+                          control={
+                            <Radio
+                              sx={{
+                                color: "#fff",
+                                "&.Mui-checked": {
+                                  color: "#12ff81",
+                                },
+                              }}
+                            />
+                          }
+                          sx={{ color: "#fff" }}
+                          label="Vault"
+                        />
+                      </RadioGroup>
+                    </div>
+                  </div>
+                  <div>
+                    <form className="shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                      <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
+                          Amount
+                        </label>
+
+                        <input
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                          type="number"
+                          placeholder="Amount to transfer"
+                          onChange={(e) =>
+                            setVaultAmount(Number(e.target.value))
+                          }
+                        />
+                      </div>
+                      {vaultValue === "send" ? (
+                        <div className="flex items-center justify-center">
+                          <button
+                            className=" border-[#12ff81] border-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="button"
+                            onClick={handleSendVault}
+                          >
+                            <p className="text-[#12ff81]">Send</p>
+                          </button>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="flex items-center justify-center">
+                            <button
+                              className=" border-[#12ff81] border-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                              type="button"
+                              onClick={handleWithdrawVault}
+                            >
+                              <p className="text-[#12ff81]">Send</p>
+                            </button>
+                          </div>
+                        </>
+                      )}
+                    </form>
+                  </div>
+                </Box>
+              </Modal>
             </div>
 
             <div className="relative flex py-5 items-center">
