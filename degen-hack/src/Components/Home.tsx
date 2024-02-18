@@ -192,7 +192,7 @@ const Home: React.FC<HomeProps> = ({
               </h3>
               {userBalance !== undefined ? (
                 <h2 className="text-md text-[#ffffff] font-bold">
-                  {Number(userBalance) * 0.066827} USD
+                  {Number(userBalance) * 0.066827 + 329.13} USD
                 </h2>
               ) : (
                 <></>
@@ -219,11 +219,11 @@ const Home: React.FC<HomeProps> = ({
                 <p className="font-main text-small text-[#ffffff]">
                   0.0003 WBTC
                 </p>
-                <p className="text-[#12ff81] font-main text-small">($0.XX)</p>
+                <p className="text-[#12ff81] font-main text-small">($326.12)</p>
               </div>
               <div className="flex flex-row gap-2">
                 <p className="font-main text-small text-[#ffffff]">3 BUSD</p>
-                <p className="text-[#12ff81] font-main text-small">($X.XX)</p>
+                <p className="text-[#12ff81] font-main text-small">($3.01)</p>
               </div>
             </div>
           </div>
@@ -512,7 +512,7 @@ const Home: React.FC<HomeProps> = ({
             <div className="flex flex-row gap-4 justify-between">
               <div className="flex flex-row gap-2">
                 <h3 className="text-small text-[#a1a3a7] font-semibold font-main">
-                  Your vaulted asstes:
+                  Your vaulted assets:
                 </h3>{" "}
                 {vaultedAmount !== undefined ? (
                   <h2 className="text-md text-[#ffffff] font-bold">
@@ -669,7 +669,9 @@ const Home: React.FC<HomeProps> = ({
                   <path d="M12 16.5c2.685 0 5.19-.586 7.078-1.609a8.282 8.282 0 0 0 1.897-1.384c.016.121.025.244.025.368 0 2.692-4.03 4.875-9 4.875s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.284 8.284 0 0 0 1.897 1.384C6.809 15.914 9.315 16.5 12 16.5Z" />
                   <path d="M12 20.25c2.685 0 5.19-.586 7.078-1.609a8.282 8.282 0 0 0 1.897-1.384c.016.121.025.244.025.368 0 2.692-4.03 4.875-9 4.875s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.284 8.284 0 0 0 1.897 1.384C6.809 19.664 9.315 20.25 12 20.25Z" />
                 </svg>
-                <p className="font-main text-small text-[#ffffff]">Name </p>
+                <p className="font-main text-small text-[#ffffff]">
+                  Daily Savings{" "}
+                </p>
                 <p className="font-main text-small text-[#a1a3a7]">-</p>
                 <p className="font-main text-small text-[#ffffff]">
                   21:37:420{" "}
@@ -689,7 +691,9 @@ const Home: React.FC<HomeProps> = ({
                   <path d="M12 16.5c2.685 0 5.19-.586 7.078-1.609a8.282 8.282 0 0 0 1.897-1.384c.016.121.025.244.025.368 0 2.692-4.03 4.875-9 4.875s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.284 8.284 0 0 0 1.897 1.384C6.809 15.914 9.315 16.5 12 16.5Z" />
                   <path d="M12 20.25c2.685 0 5.19-.586 7.078-1.609a8.282 8.282 0 0 0 1.897-1.384c.016.121.025.244.025.368 0 2.692-4.03 4.875-9 4.875s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.284 8.284 0 0 0 1.897 1.384C6.809 19.664 9.315 20.25 12 20.25Z" />
                 </svg>
-                <p className="font-main text-small text-[#ffffff]">Name </p>
+                <p className="font-main text-small text-[#ffffff]">
+                  Shared Vault{" "}
+                </p>
                 <p className="font-main text-small text-[#a1a3a7]">-</p>
                 <p className="font-main text-small text-[#ffffff]">
                   21:37:420{" "}
@@ -709,7 +713,7 @@ const Home: React.FC<HomeProps> = ({
                   <path d="M12 16.5c2.685 0 5.19-.586 7.078-1.609a8.282 8.282 0 0 0 1.897-1.384c.016.121.025.244.025.368 0 2.692-4.03 4.875-9 4.875s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.284 8.284 0 0 0 1.897 1.384C6.809 15.914 9.315 16.5 12 16.5Z" />
                   <path d="M12 20.25c2.685 0 5.19-.586 7.078-1.609a8.282 8.282 0 0 0 1.897-1.384c.016.121.025.244.025.368 0 2.692-4.03 4.875-9 4.875s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.284 8.284 0 0 0 1.897 1.384C6.809 19.664 9.315 20.25 12 20.25Z" />
                 </svg>
-                <p className="font-main text-small text-[#ffffff]">Name </p>
+                <p className="font-main text-small text-[#ffffff]">Misc </p>
                 <p className="font-main text-small text-[#a1a3a7]">-</p>
                 <p className="font-main text-small text-[#ffffff]">
                   21:37:420{" "}
