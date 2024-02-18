@@ -60,7 +60,7 @@ const Home: React.FC<HomeProps> = ({
       const pastTransactions = localStorage.getItem("user-hash");
       if (pastTransactions !== null) {
         const parsedObj = JSON.parse(pastTransactions);
-        Array.from(parsedObj).map((item: any) => {
+        Array.from(parsedObj).forEach((item: any) => {
           const getLocalItem = localStorage.getItem(item);
           if (getLocalItem !== null) {
             const parsedItem = JSON.parse(getLocalItem);
@@ -82,6 +82,7 @@ const Home: React.FC<HomeProps> = ({
     console.log(transactions);
     window.addEventListener("storage", handleStorageUpdate);
     return () => window.removeEventListener("storage", handleStorageUpdate);
+    // eslint-disable-next-line
   }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -423,7 +424,7 @@ const Home: React.FC<HomeProps> = ({
                 transactions.length > 0 &&
                 Array.from(transactions)
                   .filter(function (item) {
-                    if (item === undefined || null || item.length == 0) {
+                    if (item === undefined || null || item.length === 0) {
                       return false;
                     } else {
                       return true;

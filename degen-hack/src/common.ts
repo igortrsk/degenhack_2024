@@ -1,5 +1,4 @@
 import { FuseSDK } from "@fuseio/fusebox-web-sdk";
-import { sign } from "crypto";
 import { ethers } from "ethers";
 
 export async function putTokenVault(amount: number) {
