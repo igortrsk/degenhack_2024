@@ -70,7 +70,7 @@ export async function putTokenVault(amount: number) {
 
   // Deposit tokens into the vault
   const vaultContractWithSigner = vaultContract.connect(signer);
-  const deposit = await vaultContractWithSigner.deposit(5); // Adjust the amount you want to deposit
+  const deposit = await vaultContractWithSigner.deposit(amount); // Adjust the amount you want to deposit
   console.log(deposit);
 }
 export async function withdrawTokenVault(amount: number) {
@@ -131,6 +131,7 @@ export async function withdrawTokenVault(amount: number) {
   // TODO: Get approval
   // const vaultContractWithSigner = vaultContract.connect(signer);
   // const deposit = await vaultContractWithSigner.deposit(0);
+
   // console.log(deposit);
   // Approve the vault contract to spend tokens on behalf of the user
   const approvalAmount = ethers.constants.MaxUint256; // Approve max uint value to allow spending
@@ -142,7 +143,7 @@ export async function withdrawTokenVault(amount: number) {
 
   // Deposit tokens into the vault
   const vaultContractWithSigner = vaultContract.connect(signer);
-  const withdraw = await vaultContractWithSigner.withdraw(5); // Adjust the amount you want to deposit
+  const withdraw = await vaultContractWithSigner.withdraw(amount); // Adjust the amount you want to deposit
   console.log(withdraw);
 }
 
