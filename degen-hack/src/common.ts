@@ -1,4 +1,5 @@
 import { FuseSDK } from "@fuseio/fusebox-web-sdk";
+import { ChildProcess } from "child_process";
 import { ethers } from "ethers";
 
 export async function putTokenVault(amount: number) {
@@ -71,6 +72,13 @@ export async function putTokenVault(amount: number) {
   // Deposit tokens into the vault
   const vaultContractWithSigner = vaultContract.connect(signer);
   const deposit = await vaultContractWithSigner.deposit(amountInWei); // Adjust the amount you want to deposit
+  let vAmount = localStorage.getItem("valutedAmount");
+  localStorage.setItem(
+    "valutedAmount",
+    (Number(vAmount) + Number(amount)).toString()
+  );
+  window.dispatchEvent(new Event("storage"));
+  console.log(localStorage.getItem("valutedAmount"));
   console.log(deposit);
 }
 export async function withdrawTokenVault(amount: number) {
@@ -144,6 +152,13 @@ export async function withdrawTokenVault(amount: number) {
   // Deposit tokens into the vault
   const vaultContractWithSigner = vaultContract.connect(signer);
   const withdraw = await vaultContractWithSigner.withdraw(amountInWei); // Adjust the amount you want to deposit
+  let vAmount = localStorage.getItem("valutedAmount");
+  localStorage.setItem(
+    "valutedAmount",
+    (Number(vAmount) - Number(amount)).toString()
+  );
+  window.dispatchEvent(new Event("storage"));
+  console.log(localStorage.getItem("valutedAmount"));
   console.log(withdraw);
 }
 

@@ -27,7 +27,7 @@ const Home: React.FC<HomeProps> = ({
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const [vaultedAmount, setVaultedAmount] = useState<number>(0);
   const [vaultOpen, setVaultOpen] = useState(false);
   const handleVaultOpen = () => setVaultOpen(true);
   const handleVaultClose = () => setVaultOpen(false);
@@ -46,6 +46,7 @@ const Home: React.FC<HomeProps> = ({
     };
     getUserBalance();
     window.addEventListener("storage", getUserBalance);
+    return () => window.removeEventListener("storage", getUserBalance);
     // eslint-disable-next-line
   }, [loggedIn, fuseSDK]);
   const sliceAddr = (addr: string | any[]) => {
@@ -80,8 +81,21 @@ const Home: React.FC<HomeProps> = ({
       }
     };
     console.log(transactions);
+
     window.addEventListener("storage", handleStorageUpdate);
     return () => window.removeEventListener("storage", handleStorageUpdate);
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    const handleVaultedAmountUpdate = () => {
+      let vAmount = localStorage.getItem("valutedAmount");
+      setVaultedAmount(Math.round(Number(vAmount) * 100) / 100);
+    };
+
+    window.addEventListener("storage", handleVaultedAmountUpdate);
+    return () =>
+      window.removeEventListener("storage", handleVaultedAmountUpdate);
     // eslint-disable-next-line
   }, []);
 
@@ -504,9 +518,18 @@ const Home: React.FC<HomeProps> = ({
           </div>
           <div className="bg-[#1c1c1c] w-full h-full rounded-lg p-4 ">
             <div className="flex flex-row gap-4 justify-between">
-              <h3 className="text-small text-[#a1a3a7] font-semibold font-main">
-                Your vaults
-              </h3>{" "}
+              <div className="flex flex-row gap-2">
+                <h3 className="text-small text-[#a1a3a7] font-semibold font-main">
+                  Your vaulted asstes:
+                </h3>{" "}
+                {vaultedAmount !== undefined ? (
+                  <h2 className="text-md text-[#ffffff] font-bold">
+                    {Number(vaultedAmount)} DHIO
+                  </h2>
+                ) : (
+                  <></>
+                )}
+              </div>
               <button
                 className="border-2 border-[#12ff81] rounded-md px-1 py-px cursor-pointer"
                 onClick={handleVaultOpen}
@@ -608,12 +631,12 @@ const Home: React.FC<HomeProps> = ({
                           }
                         />
                       </div>
-                      {vaultValue === "send" ? (
+                      {vaultValue === "vault" ? (
                         <div className="flex items-center justify-center">
                           <button
                             className=" border-[#12ff81] border-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             type="button"
-                            onClick={handleWithdrawVault}
+                            onClick={handleSendVault}
                           >
                             <p className="text-[#12ff81]">Send</p>
                           </button>
@@ -624,7 +647,7 @@ const Home: React.FC<HomeProps> = ({
                             <button
                               className=" border-[#12ff81] border-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                               type="button"
-                              onClick={handleSendVault}
+                              onClick={handleWithdrawVault}
                             >
                               <p className="text-[#12ff81]">Send</p>
                             </button>
