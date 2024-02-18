@@ -398,18 +398,13 @@ const Home: React.FC<HomeProps> = ({
                     </div>
                   </Box>
                 </Modal>
-                <button
-                  className="border-2 border-[#12ff81] rounded-md px-1 py-px cursor-pointer"
-                  onClick={() => {
-                    console.log(transactions);
-                  }}
-                >
-                  <span className="flex flex-row gap-2 justifty-center items-center">
-                    <p className="text-[#12ff81]">Withdraw</p>
+                <button className="border-2 border-[#808080] rounded-md px-1 py-px cursor-pointer">
+                  <span className="flex flex-row gap-2 justifty-center items-center cursor-not-allowed">
+                    <p className="text-[#808080]">Withdraw</p>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
-                      fill="#12ff81"
+                      fill="#808080"
                       className="w-5 h-5"
                     >
                       <path
