@@ -734,20 +734,17 @@ const Home: React.FC<HomeProps> = ({
                 {
                   title: "FUSE",
                   value: Number(userBalance),
-                  color:
-                    "#" + Math.floor(Math.random() * 16777215).toString(16),
+                  color: "#A7D37D",
                 },
                 {
                   title: "WBTC",
                   value: 0.00015,
-                  color:
-                    "#" + Math.floor(Math.random() * 16777215).toString(16),
+                  color: "#459DC3",
                 },
                 {
                   title: "BUSD",
                   value: 0.0003,
-                  color:
-                    "#" + Math.floor(Math.random() * 16777215).toString(16),
+                  color: "#8088E6",
                 },
               ]}
               label={({ dataEntry }) => dataEntry.title}
