@@ -70,19 +70,7 @@ export async function sendTx(
 ) {
   console.log("sendTestTx...");
 
-  //   const privateKey =
-  // process.env.PRIVATE_KEY ??
-  // (() => {
-  //   const pk = generatePrivateKey();
-  //   console.log(pk);
-  //   return pk;
-  // })();
-
   const apiKey = API_KEY;
-
-  // FIXME:
-
-  // this is a dev privkey for https://explorer.fuse.io/address/0x8e3B791630e941302179F242e960c97E2ac4b844
 
   if (fuseSdkIns === null) {
     console.log("error");
@@ -104,6 +92,36 @@ export async function sendTx(
 
   const receipt = await res?.wait();
 
+  console.log(
+    `User operation included: https://explorer.fuse.io/tx/${receipt?.transactionHash}`
+  );
+}
+
+export async function sendTk(
+  addr: string,
+  amount: number,
+  fuseSdkIns: FuseSDK | null
+) {
+  if (fuseSdkIns === null) return "error";
+
+  console.log(`Sender Address is ${fuseSdkIns.wallet.getSender()}`);
+
+  const to = addr;
+  const value = ethers.utils.parseEther(amount.toString());
+  const data = Uint8Array.from([]);
+  console.log(data);
+  const res = await fuseSdkIns.callContract(to, value, data);
+
+  console.log(
+    `UserOpHash generated: https://jiffyscan.xyz/userOpHash/${res?.userOpHash}?network=fuse`
+  );
+  console.log("Waiting for transaction...");
+
+  console.log(
+    `Smart account address: https://explorer.fuse.io/address/${fuseSdkIns.wallet.getSender()}. Make sure to send some funds to it before you try to pay people.`
+  );
+
+  const receipt = await res?.wait();
   console.log(
     `User operation included: https://explorer.fuse.io/tx/${receipt?.transactionHash}`
   );
