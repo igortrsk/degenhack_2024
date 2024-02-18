@@ -722,12 +722,12 @@ const Home: React.FC<HomeProps> = ({
                 },
                 {
                   title: "WBTC",
-                  value: 0.00015,
+                  value: 4,
                   color: "#459DC3",
                 },
                 {
                   title: "BUSD",
-                  value: 0.0003,
+                  value: 3,
                   color: "#8088E6",
                 },
               ]}
