@@ -442,7 +442,7 @@ const Home: React.FC<HomeProps> = ({
                       //   <p>{item[3]}</p>
                       //   <p>{item[4]}</p>
                       // </div>
-                      <div className="flex flex-col md:flex-row gap-2 pb-2">
+                      <div className="flex flex-col md:flex-row gap-2 pb-8 md:pb-2">
                         <div className="flex flex-row gap-2">
                           <a
                             target="_blank"
