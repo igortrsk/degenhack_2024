@@ -673,11 +673,7 @@ const Home: React.FC<HomeProps> = ({
                   Daily Savings{" "}
                 </p>
                 <p className="font-main text-small text-[#a1a3a7]">-</p>
-                <p className="font-main text-small text-[#ffffff]">
-                  21:37:420{" "}
-                </p>
-                <p className="font-main text-small text-[#a1a3a7]">-</p>
-                <p className="text-[#12ff81] font-main text-small">($0.73)</p>
+                <p className="text-[#12ff81] font-main text-small">($32.73)</p>
               </div>
               <div className="flex flex-row gap-2 pb-2">
                 <svg
@@ -695,11 +691,7 @@ const Home: React.FC<HomeProps> = ({
                   Shared Vault{" "}
                 </p>
                 <p className="font-main text-small text-[#a1a3a7]">-</p>
-                <p className="font-main text-small text-[#ffffff]">
-                  21:37:420{" "}
-                </p>
-                <p className="font-main text-small text-[#a1a3a7]">-</p>
-                <p className="text-[#12ff81] font-main text-small">($0.73)</p>
+                <p className="text-[#12ff81] font-main text-small">($150.00)</p>
               </div>
               <div className="flex flex-row gap-2 pb-2">
                 <svg
@@ -714,10 +706,6 @@ const Home: React.FC<HomeProps> = ({
                   <path d="M12 20.25c2.685 0 5.19-.586 7.078-1.609a8.282 8.282 0 0 0 1.897-1.384c.016.121.025.244.025.368 0 2.692-4.03 4.875-9 4.875s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.284 8.284 0 0 0 1.897 1.384C6.809 19.664 9.315 20.25 12 20.25Z" />
                 </svg>
                 <p className="font-main text-small text-[#ffffff]">Misc </p>
-                <p className="font-main text-small text-[#a1a3a7]">-</p>
-                <p className="font-main text-small text-[#ffffff]">
-                  21:37:420{" "}
-                </p>
                 <p className="font-main text-small text-[#a1a3a7]">-</p>
                 <p className="text-[#12ff81] font-main text-small">($0.73)</p>
               </div>
