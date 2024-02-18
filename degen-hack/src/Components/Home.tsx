@@ -129,7 +129,7 @@ const Home: React.FC<HomeProps> = ({
               Sign Up For Fuse Ecosystem Now
             </h1>
             <p className="text-xl text-[#121312] pb-8 font-main font-semibold">
-              Join (Nazwa) to experience the ease of Fuse Blockchain. Saving
+              Join (Nazwa) to experience the ease of Fuse Blockchain! Saving
               with Vaults? Gasless Transactions? Messages on the blockchain? All
               just two clicks away!
             </p>
