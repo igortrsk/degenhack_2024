@@ -328,12 +328,12 @@ const Home: React.FC<HomeProps> = ({
                         <form className="shadow-md rounded px-8 pt-6 pb-8 mb-4">
                           <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2">
-                              Reciving Address
+                              Receiving Address
                             </label>
                             <input
                               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                               type="text"
-                              placeholder="0xFFFF...FFF"
+                              placeholder="0xFFFF...FFFF"
                               onChange={(e) => setRecAddr(e.target.value)}
                             />
                           </div>
@@ -364,12 +364,12 @@ const Home: React.FC<HomeProps> = ({
                         <form className="shadow-md rounded px-8 pt-6 pb-8 mb-4">
                           <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2">
-                              Reciving Addr
+                              Receiving Address
                             </label>
                             <input
                               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                               type="text"
-                              placeholder="0xFFFF...FFF"
+                              placeholder="0xFFFF...FFFF"
                               onChange={(e) => setRecAddr(e.target.value)}
                             />
                           </div>
@@ -535,7 +535,7 @@ const Home: React.FC<HomeProps> = ({
                 onClick={handleVaultOpen}
               >
                 <span className="flex flex-row gap-2 justifty-center items-center">
-                  <p className="text-[#12ff81]">Create new vault</p>
+                  <p className="text-[#12ff81]">Manage Vaulted Assets</p>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
