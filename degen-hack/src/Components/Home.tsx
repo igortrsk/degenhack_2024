@@ -39,6 +39,7 @@ const Home: React.FC<HomeProps> = ({
       setUserBalance(bal);
     };
     getUserBalance();
+    window.addEventListener("storage", getUserBalance);
     // eslint-disable-next-line
   }, [loggedIn, fuseSDK]);
   const sliceAddr = (addr: string | any[]) => {
