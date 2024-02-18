@@ -9,6 +9,7 @@ import logoPC from "../Assets/amogpng.png";
 import checkMark from "../Assets/check-mark-svgrepo-com.svg";
 import { getTokenData, sendTx, sendTk } from "../common";
 import { FuseSDK } from "@fuseio/fusebox-web-sdk";
+import CircularProgress from "@mui/material/CircularProgress";
 
 interface HomeProps {
   loggedIn: boolean;
@@ -31,7 +32,7 @@ const Home: React.FC<HomeProps> = ({
   const [sendAmount, setSendAmount] = useState<number>(0);
   const [sendMsg, setSendMsg] = useState<string>("");
   const [userBalance, setUserBalance] = useState<string | undefined>();
-
+  const [transactions, setTransactions] = useState<Array<Array<any>>>();
   useEffect(() => {
     const getUserBalance = async () => {
       const bal: string | undefined = await getBalance();
@@ -40,6 +41,42 @@ const Home: React.FC<HomeProps> = ({
     getUserBalance();
     // eslint-disable-next-line
   }, [loggedIn, fuseSDK]);
+  const sliceAddr = (addr: string | any[]) => {
+    const firstSixCharacters = addr?.slice(0, 6);
+    const lastThreeCharacters = addr?.slice(-4);
+    const shortenedAddress = `${firstSixCharacters}...${lastThreeCharacters}`;
+    return shortenedAddress;
+  };
+  useEffect(() => {
+    const handleStorageUpdate = () => {
+      setTransactions([[]]);
+      const pastTransactions = localStorage.getItem("user-hash");
+      if (pastTransactions !== null) {
+        const parsedObj = JSON.parse(pastTransactions);
+        Array.from(parsedObj).map((item: any) => {
+          const getLocalItem = localStorage.getItem(item);
+          if (getLocalItem !== null) {
+            const parsedItem = JSON.parse(getLocalItem);
+            // if (transactions !== (null || undefined)) {
+            setTransactions((prevTransactions) => {
+              if (prevTransactions) {
+                return prevTransactions.concat([parsedItem]);
+              } else {
+                return [parsedItem];
+              }
+            });
+            // } else {
+            // setTransactions(parsedItem);
+            // }
+          }
+        });
+      }
+    };
+    console.log(transactions);
+    window.addEventListener("storage", handleStorageUpdate);
+    return () => window.removeEventListener("storage", handleStorageUpdate);
+  }, []);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
   };
@@ -133,7 +170,13 @@ const Home: React.FC<HomeProps> = ({
               <h3 className="text-small text-[#a1a3a7] font-semibold font-main">
                 Your assets:
               </h3>
-              <h2 className="text-md text-[#ffffff] font-bold">0.00 USD</h2>
+              {userBalance !== undefined ? (
+                <h2 className="text-md text-[#ffffff] font-bold">
+                  {Number(userBalance) * 0.066827} USD
+                </h2>
+              ) : (
+                <></>
+              )}
             </div>
             <div className="relative flex py-5 items-center">
               <div className="flex-grow border-t border-[#12ff81]"></div>
@@ -144,7 +187,13 @@ const Home: React.FC<HomeProps> = ({
                 <p className="font-main text-small text-[#ffffff]">
                   {userBalance} FUSE
                 </p>
-                <p className="text-[#12ff81] font-main text-small">($0.73)</p>
+                {userBalance !== undefined ? (
+                  <p className="text-[#12ff81] font-main text-small">
+                    ${Number(userBalance) * 0.066827}
+                  </p>
+                ) : (
+                  <></>
+                )}
               </div>
               <div className="flex flex-row gap-2">
                 <p className="font-main text-small text-[#ffffff]">
@@ -160,6 +209,7 @@ const Home: React.FC<HomeProps> = ({
           </div>
           <div className="bg-[#1c1c1c] w-full h-full rounded-lg p-4 ">
             <div className="flex flex-row justify-between">
+              {}
               <h3 className="text-small text-[#a1a3a7] font-semibold font-main">
                 Your transactions
               </h3>
@@ -325,7 +375,12 @@ const Home: React.FC<HomeProps> = ({
                     </div>
                   </Box>
                 </Modal>
-                <button className="border-2 border-[#12ff81] rounded-md px-1 py-px cursor-pointer">
+                <button
+                  className="border-2 border-[#12ff81] rounded-md px-1 py-px cursor-pointer"
+                  onClick={() => {
+                    console.log(transactions);
+                  }}
+                >
                   <span className="flex flex-row gap-2 justifty-center items-center">
                     <p className="text-[#12ff81]">Withdraw</p>
                     <svg
@@ -349,97 +404,91 @@ const Home: React.FC<HomeProps> = ({
             </div>
             {/* Transactions */}
             <div>
-              <div className="flex flex-row gap-2 justify-around">
-                <div className="flex flex-row gap-2">
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    className="cursor-pointer"
-                    href="https://explorer.fuse.io/address/0x5dCcCAAd516D68E01823AfF6E75dE8bE73fb57bC"
-                  >
-                    <p className="font-main text-small text-[#ffffff]">
-                      0xFFF...FFFF
-                    </p>
-                  </a>
-                  <a
-                    className="cursor-pointer"
-                    href="https://explorer.fuse.io/tx/0x23a89806bdf507bcd5e23df2b2854cb6d525f763b691dc462570ac0f4633529c"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="#90EE90"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm4.28 10.28a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 1 0-1.06 1.06l1.72 1.72H8.25a.75.75 0 0 0 0 1.5h5.69l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3Z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                  </a>
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    className="cursor-pointer"
-                    href="https://explorer.fuse.io/address/0x5dCcCAAd516D68E01823AfF6E75dE8bE73fb57bC"
-                  >
-                    <p className="font-main text-small text-[#ffffff]">
-                      0xFFF...FFFF
-                    </p>
-                  </a>
-                </div>
-
-                <p className="font-main text-small text-[#12ff81]">11 FUSE</p>
-              </div>
-              <div className="flex flex-row gap-2 justify-around">
-                <div className="flex flex-row gap-2">
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    className="cursor-pointer"
-                    href="https://explorer.fuse.io/address/0x5dCcCAAd516D68E01823AfF6E75dE8bE73fb57bC"
-                  >
-                    <p className="font-main text-small text-[#ffffff]">
-                      0xFFF...FFFF
-                    </p>
-                  </a>
-                  <a
-                    className="cursor-pointer"
-                    href="https://explorer.fuse.io/tx/0x23a89806bdf507bcd5e23df2b2854cb6d525f763b691dc462570ac0f4633529c"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="#FBEC5D"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm4.28 10.28a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 1 0-1.06 1.06l1.72 1.72H8.25a.75.75 0 0 0 0 1.5h5.69l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3Z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                  </a>
-
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    className="cursor-pointer"
-                    href="https://explorer.fuse.io/address/0x5dCcCAAd516D68E01823AfF6E75dE8bE73fb57bC"
-                  >
-                    <p className="font-main text-small text-[#ffffff]">
-                      0xFFF...FFFF
-                    </p>
-                  </a>
-                </div>
-
-                <p className="font-main text-small text-[#12ff81]">7 FUSE</p>
-              </div>
+              {/*hash nadawca odbiorca wiadomosc waluta status */}
+              {transactions !== (null || undefined) &&
+                transactions.length > 0 &&
+                Array.from(transactions)
+                  .filter(function (item) {
+                    if (item === undefined || null || item.length == 0) {
+                      return false;
+                    } else {
+                      return true;
+                    }
+                  })
+                  .map((item: any) => {
+                    return (
+                      // <div>
+                      //   <p>{sliceAddr(item[0])}</p>
+                      //   <p>{sliceAddr(item[1])}</p>
+                      //   <p>{item[2]}</p>
+                      //   <p>{item[3]}</p>
+                      //   <p>{item[4]}</p>
+                      // </div>
+                      <div className="flex flex-row gap-2 justify-between">
+                        <div className="flex flex-row gap-2">
+                          <a
+                            target="_blank"
+                            rel="noreferrer"
+                            className="cursor-pointer"
+                            href={`https://explorer.fuse.io/address/${item[0]}`}
+                          >
+                            <p className="font-main text-small text-[#ffffff]">
+                              {sliceAddr(item[0])}
+                            </p>
+                          </a>
+                          {item[4] === "done" ? (
+                            <a
+                              className="cursor-pointer"
+                              href={`https://explorer.fuse.io/tx/${item[5]}`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="#90EE90"
+                                className="w-6 h-6"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm4.28 10.28a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 1 0-1.06 1.06l1.72 1.72H8.25a.75.75 0 0 0 0 1.5h5.69l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3Z"
+                                  clip-rule="evenodd"
+                                />
+                              </svg>
+                            </a>
+                          ) : (
+                            <a
+                              className="cursor-pointer"
+                              href={`https://explorer.fuse.io/tx/${item[5]}`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <CircularProgress
+                                sx={{ color: "yellow" }}
+                                size="1.5rem"
+                              />
+                            </a>
+                          )}
+                          <a
+                            target="_blank"
+                            rel="noreferrer"
+                            className="cursor-pointer"
+                            href={`https://explorer.fuse.io/address/${item[1]}`}
+                          >
+                            <p className="font-main text-small text-[#ffffff]">
+                              {sliceAddr(item[1])}
+                            </p>
+                          </a>
+                        </div>
+                        <p className="font-main text-small text-[#12ff81]">
+                          {item[2]}
+                        </p>
+                        <p className="font-main text-small text-[#12ff81]">
+                          {item[3]} FUSE
+                        </p>
+                      </div>
+                    );
+                  })}
             </div>
           </div>
           <div className="bg-[#1c1c1c] w-full h-full rounded-lg p-4 ">
@@ -538,19 +587,19 @@ const Home: React.FC<HomeProps> = ({
               data={[
                 {
                   title: "FUSE",
-                  value: 10,
+                  value: Number(userBalance),
                   color:
                     "#" + Math.floor(Math.random() * 16777215).toString(16),
                 },
                 {
                   title: "WBTC",
-                  value: 15,
+                  value: 0.00015,
                   color:
                     "#" + Math.floor(Math.random() * 16777215).toString(16),
                 },
                 {
                   title: "BUSD",
-                  value: 20,
+                  value: 0.0003,
                   color:
                     "#" + Math.floor(Math.random() * 16777215).toString(16),
                 },

@@ -49,7 +49,6 @@ function App() {
       }
     };
     init();
-
     document.body.style.backgroundColor = "#121312";
     // eslint-disable-next-line
   }, []);
@@ -102,6 +101,8 @@ function App() {
   useEffect(() => {
     if (loggedIn && fuseSDK) {
       setAddress(fuseSDK.wallet.getSender());
+      window.dispatchEvent(new Event("storage"));
+
       getBalance();
     }
     // eslint-disable-next-line

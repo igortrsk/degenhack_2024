@@ -85,6 +85,29 @@ export async function sendTx(
   console.log(
     `UserOpHash generated: https://jiffyscan.xyz/userOpHash/${res?.userOpHash}?network=fuse`
   );
+  const pastTransactions = localStorage.getItem("user-hash");
+  if (pastTransactions !== null) {
+    const parsedObj = JSON.parse(pastTransactions);
+
+    let newObject = [...parsedObj, res?.userOpHash];
+    localStorage.setItem("user-hash", JSON.stringify(newObject));
+  } else {
+    localStorage.setItem("user-hash", JSON.stringify([res?.userOpHash]));
+  }
+
+  if (res?.userOpHash !== undefined)
+    localStorage.setItem(
+      res?.userOpHash,
+      JSON.stringify([
+        fuseSdkIns.wallet.getSender(),
+        addr,
+        msg,
+        0,
+        "loading",
+        "waiting",
+      ])
+    );
+  window.dispatchEvent(new Event("storage"));
   console.log("Waiting for transaction...");
 
   const receipt = await res?.wait();
@@ -92,6 +115,20 @@ export async function sendTx(
   console.log(
     `User operation included: https://explorer.fuse.io/tx/${receipt?.transactionHash}`
   );
+  //userOpHash->fuseSdkIns.wallet.getSender(),addr,msg,0,done
+  if (res?.userOpHash !== undefined)
+    localStorage.setItem(
+      res?.userOpHash,
+      JSON.stringify([
+        fuseSdkIns.wallet.getSender(),
+        addr,
+        msg,
+        0,
+        "done",
+        receipt?.transactionHash,
+      ])
+    );
+  window.dispatchEvent(new Event("storage"));
 }
 
 export async function sendTk(
@@ -112,6 +149,32 @@ export async function sendTk(
   console.log(
     `UserOpHash generated: https://jiffyscan.xyz/userOpHash/${res?.userOpHash}?network=fuse`
   );
+
+  const pastTransactions = localStorage.getItem("user-hash");
+  if (pastTransactions !== null) {
+    const parsedObj = JSON.parse(pastTransactions);
+
+    let newObject = [...parsedObj, res?.userOpHash];
+    localStorage.setItem("user-hash", JSON.stringify(newObject));
+  } else {
+    localStorage.setItem("user-hash", JSON.stringify([res?.userOpHash]));
+  }
+  window.dispatchEvent(new Event("storage"));
+
+  if (res?.userOpHash !== undefined)
+    localStorage.setItem(
+      res?.userOpHash,
+      JSON.stringify([
+        fuseSdkIns.wallet.getSender(),
+        addr,
+        "No message",
+        amount,
+        "loading",
+        "waiting",
+      ])
+    );
+  window.dispatchEvent(new Event("storage"));
+
   console.log("Waiting for transaction...");
 
   console.log(
@@ -122,4 +185,18 @@ export async function sendTk(
   console.log(
     `User operation included: https://explorer.fuse.io/tx/${receipt?.transactionHash}`
   );
+
+  if (res?.userOpHash !== undefined)
+    localStorage.setItem(
+      res?.userOpHash,
+      JSON.stringify([
+        fuseSdkIns.wallet.getSender(),
+        addr,
+        "No message",
+        amount,
+        "done",
+        receipt?.transactionHash,
+      ])
+    );
+  window.dispatchEvent(new Event("storage"));
 }
