@@ -5,7 +5,7 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import { useEffect, useState } from "react";
 import { PieChart } from "react-minimal-pie-chart";
-import logoPC from "../Assets/amogpng.png";
+import logoPC from "../Assets/pie-chart-svgrepo-com.svg";
 import checkMark from "../Assets/check-mark-svgrepo-com.svg";
 import { putTokenVault, withdrawTokenVault, sendTx, sendTk } from "../common";
 import { FuseSDK } from "@fuseio/fusebox-web-sdk";
@@ -159,7 +159,7 @@ const Home: React.FC<HomeProps> = ({
             </ul>
           </div>
           <div className="bg-[#1c1c1c] w-full h-full rounded-lg p-16 flex flex-col mx-auto align-center items-center border-[#12ff81] border-2">
-            <img src={logoPC} alt="logo" className="max-h-16 max-w-16 pb-8" />
+            <img src={logoPC} alt="logo" className="max-h-16 max-w-16 pb-6" />
             <h1 className="text-2xl text-[#12ff81] text-center pb-6 font-bold font-main">
               Leave your mark on fuse blockchain today!
             </h1>
