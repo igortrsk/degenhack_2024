@@ -1,6 +1,5 @@
 import { FuseSDK } from "@fuseio/fusebox-web-sdk";
 import { ethers } from "ethers";
-import { API_KEY } from "./env";
 
 export async function getTokenData() {
   // A Web3Provider wraps a standard Web3 provider, which is
@@ -69,8 +68,6 @@ export async function sendTx(
   fuseSdkIns: FuseSDK | null
 ) {
   console.log("sendTestTx...");
-
-  const apiKey = API_KEY;
 
   if (fuseSdkIns === null) {
     console.log("error");

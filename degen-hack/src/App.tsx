@@ -64,8 +64,6 @@ function App() {
         // setFuseSDK(
         //   await FuseSDK.init(publicApiKey, signer, { withPaymaster: true })
         // );
-        let signer = null;
-        let test: ethers.Wallet;
         if (window.ethereum == null) {
         } else {
           // if (web3auth.provider !== null) {
@@ -156,20 +154,20 @@ function App() {
   //   console.log(`EOA: ${address}`, `SCA: ${scaAddress}`);
   // };
 
-  async function accAddr() {
-    console.log("running");
-    if (!provider) {
-      console.log("Provider not initialized yet");
-      throw new Error("Provider not initialized yet");
-    }
-    const web3 = new Web3(provider as any);
-    const addresses = await web3.eth.getAccounts();
-    if (addresses && addresses.length > 0) {
-      return addresses[0];
-    } else {
-      throw new Error("No accounts found");
-    }
-  }
+  // async function accAddr() {
+  //   console.log("running");
+  //   if (!provider) {
+  //     console.log("Provider not initialized yet");
+  //     throw new Error("Provider not initialized yet");
+  //   }
+  //   const web3 = new Web3(provider as any);
+  //   const addresses = await web3.eth.getAccounts();
+  //   if (addresses && addresses.length > 0) {
+  //     return addresses[0];
+  //   } else {
+  //     throw new Error("No accounts found");
+  //   }
+  // }
   // Function to get user balance
   const getBalance = async () => {
     if (!provider || !fuseSDK) {
@@ -177,7 +175,7 @@ function App() {
       return;
     }
     const web3 = new Web3(provider as any);
-    const address = (await web3.eth.getAccounts())[0];
+    // const address = (await web3.eth.getAccounts())[0];
 
     // Get user's balance in ether
     const balance = web3.utils.fromWei(

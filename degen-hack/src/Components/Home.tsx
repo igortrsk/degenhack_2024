@@ -38,6 +38,7 @@ const Home: React.FC<HomeProps> = ({
       setUserBalance(bal);
     };
     getUserBalance();
+    // eslint-disable-next-line
   }, [loggedIn, fuseSDK]);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
