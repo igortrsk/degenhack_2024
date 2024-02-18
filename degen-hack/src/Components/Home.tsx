@@ -289,7 +289,7 @@ const Home: React.FC<HomeProps> = ({
                               />
                             }
                             sx={{ color: "#fff" }}
-                            label="Send Fuze"
+                            label="Send Fuse"
                           />
                           <FormControlLabel
                             value="message"
@@ -613,7 +613,7 @@ const Home: React.FC<HomeProps> = ({
                           <button
                             className=" border-[#12ff81] border-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             type="button"
-                            onClick={handleSendVault}
+                            onClick={handleWithdrawVault}
                           >
                             <p className="text-[#12ff81]">Send</p>
                           </button>
@@ -624,7 +624,7 @@ const Home: React.FC<HomeProps> = ({
                             <button
                               className=" border-[#12ff81] border-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                               type="button"
-                              onClick={handleWithdrawVault}
+                              onClick={handleSendVault}
                             >
                               <p className="text-[#12ff81]">Send</p>
                             </button>

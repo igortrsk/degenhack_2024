@@ -67,10 +67,10 @@ export async function putTokenVault(amount: number) {
     approvalAmount
   );
   console.log(approval);
-
+  const amountInWei = ethers.utils.parseUnits(amount.toString(), decimals);
   // Deposit tokens into the vault
   const vaultContractWithSigner = vaultContract.connect(signer);
-  const deposit = await vaultContractWithSigner.deposit(amount); // Adjust the amount you want to deposit
+  const deposit = await vaultContractWithSigner.deposit(amountInWei); // Adjust the amount you want to deposit
   console.log(deposit);
 }
 export async function withdrawTokenVault(amount: number) {
@@ -140,10 +140,10 @@ export async function withdrawTokenVault(amount: number) {
     approvalAmount
   );
   console.log(approval);
-
+  const amountInWei = ethers.utils.parseUnits(amount.toString(), decimals);
   // Deposit tokens into the vault
   const vaultContractWithSigner = vaultContract.connect(signer);
-  const withdraw = await vaultContractWithSigner.withdraw(amount); // Adjust the amount you want to deposit
+  const withdraw = await vaultContractWithSigner.withdraw(amountInWei); // Adjust the amount you want to deposit
   console.log(withdraw);
 }
 
