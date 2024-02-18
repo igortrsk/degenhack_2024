@@ -3,10 +3,9 @@ import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
 interface NavbarProps {
   address: string | null;
-  logout: () => void; // Define the type of the function
 }
 
-const Navbar: React.FC<NavbarProps> = ({ address, logout }) => {
+const Navbar: React.FC<NavbarProps> = ({ address }) => {
   const sliceFunct = () => {
     console.log(address);
     const firstSixCharacters = address?.slice(0, 6);
@@ -31,7 +30,6 @@ const Navbar: React.FC<NavbarProps> = ({ address, logout }) => {
       </div>
       {address !== null ? (
         <div className="flex gap-2 items-center pl-8">
-          <button onClick={logout}>LOGOUT</button>
           <Jazzicon diameter={25} seed={jsNumberForAddress(address)} />
           <p className="text-white">{sliceFunct()}</p>
         </div>

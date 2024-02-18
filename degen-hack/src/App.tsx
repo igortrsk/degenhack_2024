@@ -149,16 +149,16 @@ function App() {
   // };
 
   // Function to handle logout
-  const logout = async () => {
-    try {
-      await web3auth.logout();
-      setProvider(null);
-      setLoggedIn(false);
-      console.log("Logged out");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const logout = async () => {
+  //   try {
+  //     await web3auth.logout();
+  //     setProvider(null);
+  //     setLoggedIn(false);
+  //     console.log("Logged out");
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   // const getAccounts = async () => {
   //   if (!provider) {
@@ -213,7 +213,7 @@ function App() {
 
   return (
     <div className="bg-[#121312]">
-      <Navbar address={address} logout={logout} />
+      <Navbar address={address} />
       <div className="h-full w-[90%] flex mx-auto flex-col">
         <Home
           loggedIn={loggedIn}
