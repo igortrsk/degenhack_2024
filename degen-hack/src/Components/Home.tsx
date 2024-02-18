@@ -129,9 +129,9 @@ const Home: React.FC<HomeProps> = ({
               Sign Up For Fuse Ecosystem Now
             </h1>
             <p className="text-xl text-[#121312] pb-8 font-main font-semibold">
-              Join (Nazwa) to experience the ease of Fuse Blockchain! Saving
-              with Vaults? Gasless Transactions? Messages on the blockchain? All
-              just two clicks away!
+              Join Fuzer to experience the ease of Fuse Blockchain! Saving with
+              Vaults? Gasless Transactions? Messages on the blockchain? All just
+              two clicks away!
             </p>
             <ul className="">
               <li className="flex flex-row items-center  mb-4">
@@ -154,7 +154,7 @@ const Home: React.FC<HomeProps> = ({
               </li>{" "}
               <li className="flex flex-row items-center  mb-4">
                 <img src={checkMark} alt="" className="h-4 pr-2" />
-                <p className="font-main font-normal text-sm">cus we so cool</p>
+                <p className="font-main font-normal text-sm">Creative</p>
               </li>
             </ul>
           </div>
