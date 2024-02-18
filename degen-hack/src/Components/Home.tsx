@@ -129,9 +129,9 @@ const Home: React.FC<HomeProps> = ({
               Sign Up For Fuse Ecosystem Now
             </h1>
             <p className="text-xl text-[#121312] pb-8 font-main font-semibold">
-              Join Fuzer to experience the ease of Fuse Blockchain! Saving with
-              Vaults? Gasless Transactions? Messages on the blockchain? All just
-              two clicks away!
+              Join Fuzer to experience the ease of the Fuse Blockchain! Saving
+              with Vaults? Gasless Transactions? Messages on the blockchain? All
+              just two clicks away!
             </p>
             <ul className="">
               <li className="flex flex-row items-center  mb-4">
@@ -161,7 +161,7 @@ const Home: React.FC<HomeProps> = ({
           <div className="bg-[#1c1c1c] w-full h-full rounded-lg p-16 flex flex-col mx-auto align-center items-center border-[#12ff81] border-2">
             <img src={logoPC} alt="logo" className="max-h-16 max-w-16 pb-6" />
             <h1 className="text-2xl text-[#12ff81] text-center pb-6 font-bold font-main">
-              Leave your mark on fuse blockchain today!
+              Leave your mark on the Fuse Blockchain today!
             </h1>
 
             <button
@@ -289,7 +289,7 @@ const Home: React.FC<HomeProps> = ({
                               />
                             }
                             sx={{ color: "#fff" }}
-                            label="Token"
+                            label="Transfer Fuze"
                           />
                           <FormControlLabel
                             value="message"
@@ -304,7 +304,7 @@ const Home: React.FC<HomeProps> = ({
                               />
                             }
                             sx={{ color: "#fff" }}
-                            label="Message"
+                            label="Gasless Message"
                           />
                         </RadioGroup>
                       </div>

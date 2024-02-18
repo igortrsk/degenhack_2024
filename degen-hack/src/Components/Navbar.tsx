@@ -29,7 +29,7 @@ const Navbar: React.FC<NavbarProps> = ({ address }) => {
         </div>
       </div>
       {address !== null ? (
-        <div className="flex gap-2 items-center pl-8">
+        <div className="flex gap-2 items-center pl-8 mr-6">
           <Jazzicon diameter={25} seed={jsNumberForAddress(address)} />
           <p className="text-white">{sliceFunct()}</p>
         </div>
