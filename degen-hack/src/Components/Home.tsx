@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 import logoPC from "../Assets/amogpng.png";
 import checkMark from "../Assets/check-mark-svgrepo-com.svg";
-import { getTokenData, sendTx } from "../common";
+import { getTokenData, sendTx, sendTk } from "../common";
 import { FuseSDK } from "@fuseio/fusebox-web-sdk";
 
 interface HomeProps {
@@ -38,16 +38,23 @@ const Home: React.FC<HomeProps> = ({
       setUserBalance(bal);
     };
     getUserBalance();
-  }, [loggedIn]);
+  }, [loggedIn, fuseSDK]);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
   };
 
-  const handleSend = () => {
-    console.log(recAddr, sendAmount, sendMsg);
+  const handleSendText = () => {
     handleClose();
     if (fuseSDK !== null) {
       sendTx(recAddr, sendMsg, fuseSDK);
+    } else {
+      console.log("Fuse sdk is null!");
+    }
+  };
+  const handleSendToken = () => {
+    handleClose();
+    if (fuseSDK !== null) {
+      sendTk(recAddr, sendAmount, fuseSDK);
     } else {
       console.log("Fuse sdk is null!");
     }
@@ -273,6 +280,7 @@ const Home: React.FC<HomeProps> = ({
                             <button
                               className=" border-[#12ff81] border-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                               type="button"
+                              onClick={handleSendToken}
                             >
                               <p className="text-[#12ff81]">Send</p>
                             </button>
@@ -306,7 +314,7 @@ const Home: React.FC<HomeProps> = ({
                             <button
                               className=" border-[#12ff81] border-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                               type="button"
-                              onClick={handleSend}
+                              onClick={handleSendText}
                             >
                               <p className="text-[#12ff81]">Send</p>
                             </button>

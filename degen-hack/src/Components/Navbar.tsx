@@ -8,6 +8,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ address, logout }) => {
   const sliceFunct = () => {
+    console.log(address);
     const firstSixCharacters = address?.slice(0, 6);
     const lastThreeCharacters = address?.slice(-4);
     const shortenedAddress = `${firstSixCharacters}...${lastThreeCharacters}`;

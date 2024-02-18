@@ -56,31 +56,58 @@ function App() {
   useEffect(() => {
     (async () => {
       if (loggedIn && provider) {
-        const ethersProvider = new ethers.providers.Web3Provider(
-          web3auth.provider as any
-        );
-        const signer = ethersProvider.getSigner();
-        const publicApiKey = API_KEY;
-        setFuseSDK(
-          await FuseSDK.init(publicApiKey, signer, { withPaymaster: true })
-        );
+        // const ethersProvider = new ethers.providers.Web3Provider(
+        //   web3auth.provider as any
+        // );
+        // const signer = ethersProvider.getSigner();
+        // const publicApiKey = API_KEY;
+        // setFuseSDK(
+        //   await FuseSDK.init(publicApiKey, signer, { withPaymaster: true })
+        // );
+        let signer = null;
+        let test: ethers.Wallet;
+        if (window.ethereum == null) {
+        } else {
+          // if (web3auth.provider !== null) {
+          //   web3auth.provider
+          //     .request({
+          //       method: "eth_private_key",
+          //     })
+          //     .then(async (pK) => {
+          //       if (typeof pK === "string") test = new ethers.Wallet(pK);
+          //       console.log(test);
+          //       const apiKey = API_KEY;
+          //       const fuseSDK = await FuseSDK.init(apiKey, test, {
+          //         withPaymaster: true,
+          //       });
+          //       setFuseSDK(fuseSDK);
+          //       console.log(`logged in, ${fuseSDK.wallet.getSender()}`);
+          //       setLoggedIn(true);
+          //     });
+          // }
+
+          const ethersProvider = new ethers.providers.Web3Provider(
+            web3auth.provider as any
+          );
+          const signer = ethersProvider.getSigner();
+          const fuseSDK = await FuseSDK.init(API_KEY, signer, {
+            withPaymaster: true,
+          });
+          setFuseSDK(fuseSDK);
+          console.log(`logged in, ${fuseSDK.wallet.getSender()}`);
+          setLoggedIn(true);
+        }
       }
     })();
   }, [provider, loggedIn]);
 
   useEffect(() => {
-    if (loggedIn) {
-      accAddr()
-        .then((userAddress) => {
-          setAddress(userAddress);
-        })
-        .catch((error) => {
-          console.error("Error fetching address:", error);
-        });
+    if (loggedIn && fuseSDK) {
+      setAddress(fuseSDK.wallet.getSender());
       getBalance();
     }
     // eslint-disable-next-line
-  }, [loggedIn]);
+  }, [loggedIn, fuseSDK]);
 
   // Function to handle login
   const login = async () => {
@@ -145,7 +172,7 @@ function App() {
   }
   // Function to get user balance
   const getBalance = async () => {
-    if (!provider) {
+    if (!provider || !fuseSDK) {
       uiConsole("provider not initialized yet");
       return;
     }
@@ -154,10 +181,9 @@ function App() {
 
     // Get user's balance in ether
     const balance = web3.utils.fromWei(
-      await web3.eth.getBalance(address), // Balance is in wei
+      await web3.eth.getBalance(fuseSDK.wallet.getSender()), // Balance is in wei
       "ether"
     );
-
     return balance;
   };
 
