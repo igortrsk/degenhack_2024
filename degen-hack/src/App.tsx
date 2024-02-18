@@ -31,6 +31,10 @@ function App() {
   const [fuseSDK, setFuseSDK] = useState<FuseSDK | null>(null);
   const [address, setAddress] = useState<string | null>(null);
 
+  useEffect(() => {
+    document.title = "Fuzer";
+  }, []);
+
   // useEffect to initialize Web3Auth
   useEffect(() => {
     const init = async () => {
