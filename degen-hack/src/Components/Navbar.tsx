@@ -31,7 +31,14 @@ const Navbar: React.FC<NavbarProps> = ({ address }) => {
       {address !== null ? (
         <div className="flex gap-2 items-center pl-8 mr-6">
           <Jazzicon diameter={25} seed={jsNumberForAddress(address)} />
-          <p className="text-white">{sliceFunct()}</p>
+          <span
+            onClick={() => {
+              navigator.clipboard.writeText(address);
+            }}
+            className="text-white cursor-pointer"
+          >
+            {sliceFunct()}
+          </span>
         </div>
       ) : (
         <></>

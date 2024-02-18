@@ -289,7 +289,7 @@ const Home: React.FC<HomeProps> = ({
                               />
                             }
                             sx={{ color: "#fff" }}
-                            label="Transfer Fuze"
+                            label="Send Fuze"
                           />
                           <FormControlLabel
                             value="message"
